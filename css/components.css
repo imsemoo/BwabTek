@@ -1,0 +1,425 @@
+/* ==========================================================================
+   بوابتك - Components: buttons, gateway primitives, header, language toggle,
+   mobile menu. Only transform and opacity animate. Logical properties only.
+   ========================================================================== */
+@layer components {
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-8);
+    min-block-size: var(--touch);
+    min-inline-size: var(--touch);
+    padding-block: var(--sp-12);
+    padding-inline: var(--sp-24);
+    border: 1px solid transparent;
+    border-radius: var(--r-sm);
+    font-size: var(--step-0);
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--dur-fast) var(--ease),
+      background-color var(--dur-ui) var(--ease),
+      border-color var(--dur-ui) var(--ease),
+      box-shadow var(--dur-ui) var(--ease),
+      color var(--dur-ui) var(--ease);
+  }
+
+  .btn:active {
+    transform: translateY(1px) scale(.98);
+  }
+
+  /* Primary: the one filled surface. Fill stays --brand so the white label
+     keeps its 4.50:1; the lift + 1px ring carry the hover feedback. */
+  .btn--primary {
+    background: var(--brand);
+    color: var(--on-brand);
+    box-shadow: inset 0 1px 0 var(--highlight);
+  }
+
+  /* Ghost: outlined, full-weight text. Header call to action. */
+  .btn--ghost {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--line-strong);
+  }
+
+  /* Quiet: outlined, muted text. Secondary action next to a primary. */
+  .btn--quiet {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: var(--line);
+    font-weight: 500;
+  }
+
+  .btn--lg {
+    padding-block: var(--sp-16);
+    padding-inline: var(--sp-32);
+  }
+
+  .btn--sm {
+    padding-block: var(--sp-8);
+    padding-inline: var(--sp-16);
+    font-size: var(--step--1);
+    font-weight: 500;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 var(--highlight),
+        0 0 0 1px rgb(var(--brand-rgb) / .55);
+    }
+
+    .btn--ghost:hover {
+      transform: translateY(-1px);
+      background: var(--hover-bg);
+    }
+
+    .btn--quiet:hover {
+      color: var(--text);
+      border-color: var(--line-strong);
+      background: var(--hover-bg);
+    }
+
+    .btn:hover:active {
+      transform: translateY(0) scale(.98);
+    }
+  }
+
+  /* ---------- Gateway grammar: drawing primitives ----------
+     .datum  a ground/dimension line with a tick at each end
+     .arch   an opening: outer hairline, inner jamb line, light falling from the top */
+  .datum {
+    position: relative;
+    border-block-start: 1px solid var(--line);
+  }
+
+  .datum::before,
+  .datum::after {
+    content: "";
+    position: absolute;
+    inset-block-start: calc(var(--sp-4) * -1 - 1px);
+    inline-size: 1px;
+    block-size: var(--sp-8);
+    background: var(--line-strong);
+  }
+
+  .datum::before {
+    inset-inline-start: 0;
+  }
+
+  .datum::after {
+    inset-inline-end: 0;
+  }
+
+  .arch {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-block-end: 0;
+    border-start-start-radius: var(--r-pill);
+    border-start-end-radius: var(--r-pill);
+  }
+
+  .arch::before {
+    content: "";
+    position: absolute;
+    inset: var(--sp-12) var(--sp-12) 0;
+    border: 1px solid var(--line);
+    border-block-end: 0;
+    border-radius: inherit;
+  }
+
+  .arch::after {
+    content: "";
+    position: absolute;
+    inset: calc(var(--sp-12) + 1px) calc(var(--sp-12) + 1px) 0;
+    border-radius: inherit;
+    background: linear-gradient(to bottom, var(--light), transparent 62%);
+  }
+
+  /* ---------- Header: transparent over the hero, hairline glass after 60px ---------- */
+  .header {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: var(--z-header);
+    block-size: var(--header-h);
+    background-color: rgba(7, 8, 11, 0);
+    border-block-end: 1px solid transparent;
+    transition:
+      background-color var(--dur-ui) var(--ease),
+      border-color var(--dur-ui) var(--ease);
+  }
+
+  .header.is-scrolled,
+  .header.is-open {
+    background-color: var(--glass);
+    border-color: var(--border);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  .header__inner {
+    block-size: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--sp-16);
+  }
+
+  /* Logo: SVG gateway mark + HTML wordmark (real text, translatable) */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-8);
+    min-block-size: var(--touch);
+    padding-inline-end: var(--sp-4);
+    border-radius: var(--r-sm);
+    color: var(--text);
+    font-size: var(--step-0);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .logo__mark {
+    inline-size: 22px;
+    block-size: 28px;
+    color: var(--text);
+  }
+
+  /* Desktop nav */
+  .nav {
+    display: none;
+    justify-self: center;
+    min-inline-size: 0;
+  }
+
+  .nav__list {
+    display: flex;
+    gap: var(--sp-4);
+  }
+
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch);
+    padding-inline: var(--sp-12);
+    border-radius: var(--r-sm);
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .5em;
+    transition:
+      color var(--dur-ui) var(--ease),
+      text-decoration-color var(--dur-ui) var(--ease);
+  }
+
+  .nav__link[aria-current="true"] {
+    color: var(--text);
+    text-decoration-color: var(--text);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav__link:hover {
+      color: var(--text);
+    }
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-12);
+    justify-self: end;
+  }
+
+  .header__cta {
+    display: none;
+  }
+
+  /* Hamburger: two bars that rotate into a cross */
+  .menu-toggle {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    inline-size: var(--touch);
+    block-size: var(--touch);
+    border-radius: var(--r-sm);
+    color: var(--text);
+  }
+
+  .menu-toggle__bar {
+    position: absolute;
+    inline-size: 20px;
+    block-size: 1px;
+    background: currentColor;
+    transition: transform var(--dur-ui) var(--ease);
+  }
+
+  .menu-toggle__bar:nth-child(1) { transform: translateY(-4px); }
+  .menu-toggle__bar:nth-child(2) { transform: translateY(4px); }
+
+  .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(1) { transform: rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) { transform: rotate(-45deg); }
+
+  @media (min-width: 600px) {
+    .header__cta {
+      display: inline-flex;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .nav {
+      display: block;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  /* ---------- Language toggle ----------
+     Two labels and a hairline. Each label is pinned to its own font so the
+     control is the same width in both languages and the header never shifts.
+     The active label is styled from html[lang], so it needs no JS state. */
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-8);
+    min-block-size: var(--touch);
+    padding-inline: var(--sp-8);
+    border-radius: var(--r-sm);
+  }
+
+  .lang-toggle__opt {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: var(--sp-24);
+    font-size: var(--step--1);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text-faint);
+    transition: color var(--dur-ui) var(--ease);
+  }
+
+  .lang-toggle__opt[lang="ar"] {
+    font-family: "Alexandria", system-ui, sans-serif;
+  }
+
+  .lang-toggle__opt[lang="en"] {
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  .lang-toggle__sep {
+    inline-size: 1px;
+    block-size: var(--sp-12);
+    background: var(--line);
+  }
+
+  html[lang="ar"] .lang-toggle__opt[lang="ar"],
+  html[lang="en"] .lang-toggle__opt[lang="en"] {
+    color: var(--text);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lang-toggle:hover .lang-toggle__opt {
+      color: var(--text);
+    }
+  }
+
+  /* ---------- Mobile menu (sibling of the header, under it in z so the
+     cross button stays clickable). Opens with opacity + scale only. ---------- */
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-menu);
+    display: flex;
+    flex-direction: column;
+    padding-block: calc(var(--header-h) + var(--sp-24)) var(--sp-32);
+    padding-inline: var(--gutter);
+    background: var(--glass-strong);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    transform: scale(.98);
+    visibility: hidden;
+    transition:
+      opacity var(--dur-ui) var(--ease),
+      transform var(--dur-ui) var(--ease),
+      visibility 0s linear var(--dur-ui);
+  }
+
+  .menu.is-open {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition-delay: 0s, 0s, 0s;
+  }
+
+  .menu__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .menu__link {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--touch);
+    padding-block: var(--sp-8);
+    border-radius: var(--r-sm);
+    color: var(--text);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  /* Stagger: 60ms × index, capped at 5 items */
+  .menu.is-open .menu__item {
+    animation: menu-item-in var(--dur-in) var(--ease) both;
+    animation-delay: calc(var(--i, 0) * var(--stagger));
+  }
+
+  @keyframes menu-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--sp-8));
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .menu__footer {
+    display: grid;
+    gap: var(--sp-12);
+    margin-block-start: auto;
+    padding-block-start: var(--sp-24);
+  }
+
+  .menu__note {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    text-align: center;
+    max-inline-size: none;
+  }
+
+  @media (min-width: 900px) {
+    .menu {
+      display: none;
+    }
+  }
+}

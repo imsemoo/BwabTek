@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title data-i18n="meta.title">بوابتك | برمجة وأتمتة تخلّي شغلك يمشي من غيرك</title>
+  <meta name="description" data-i18n-attr="content:meta.description" content="بوابتك بيت برمجة مصري يبني تطبيقات الويب والموبايل، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. تسليم شغّال، مش سلايدات. احجز استشارة مجانية 20 دقيقة.">
+  <meta name="theme-color" content="#07080B">
+  <meta name="color-scheme" content="dark">
+
+  <!-- PHASE 3: canonical + hreflang (ar / en / x-default) once the domain is confirmed,
+       JSON-LD (Organization, ProfessionalService, FAQPage, BreadcrumbList),
+       and the 1200x630 OG images assets/og-ar.png and assets/og-en.png. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="بوابتك">
+  <meta property="og:title" data-i18n-attr="content:meta.title" content="بوابتك | برمجة وأتمتة تخلّي شغلك يمشي من غيرك">
+  <meta property="og:description" data-i18n-attr="content:meta.description" content="بوابتك بيت برمجة مصري يبني تطبيقات الويب والموبايل، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. تسليم شغّال، مش سلايدات. احجز استشارة مجانية 20 دقيقة.">
+  <meta property="og:locale" content="ar_EG">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
+
+  <!-- Language bootstrap: apply the stored choice to <html> before first paint.
+       The body stays hidden only until js/i18n.js swaps the strings (or 800ms). -->
+  <script>
+    (function () {
+      try {
+        var lang = localStorage.getItem('bawabtak.lang');
+        if (lang !== 'ar' && lang !== 'en') return;
+        var root = document.documentElement;
+        if (root.lang === lang) return;
+        root.lang = lang;
+        root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        root.setAttribute('data-i18n-pending', '');
+        setTimeout(function () { root.removeAttribute('data-i18n-pending'); }, 800);
+      } catch (error) {}
+    })();
+  </script>
+
+  <!-- Fonts: the one allowed third-party request. PHASE 3: self-host woff2 subsets
+       under assets/fonts/ with preload for the hero weight, then remove this. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="css/tokens.css?v=6">
+  <link rel="stylesheet" href="css/base.css?v=6">
+  <link rel="stylesheet" href="css/components.css?v=6">
+  <link rel="stylesheet" href="css/sections.css?v=6">
+
+  <script type="module" src="js/main.js?v=5"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">تخطَّ إلى المحتوى</a>
+  <div class="scroll-sentinel" aria-hidden="true"></div>
+
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a class="logo" href="#top" aria-label="بوابتك" data-i18n-attr="aria-label:brand.name">
+        <svg class="logo__mark" viewBox="0 0 22 28" fill="none" aria-hidden="true" focusable="false">
+          <path d="M1.5 27.5V11a9.5 9.5 0 0 1 19 0v16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6 27.5V12a5 5 0 0 1 10 0v15.5Z" fill="#2E6BFF"/>
+          <path d="M0 27.25h22" stroke="currentColor" stroke-opacity=".4" stroke-width="1.5"/>
+        </svg>
+        <span class="logo__word" data-i18n="brand.name">بوابتك</span>
+      </a>
+
+      <nav class="nav" aria-label="القائمة الرئيسية" data-i18n-attr="aria-label:nav.label">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#services" data-i18n="nav.services">الخدمات</a></li>
+          <li><a class="nav__link" href="#process" data-i18n="nav.process">إزاي بنشتغل</a></li>
+          <li><a class="nav__link" href="#work" data-i18n="nav.work">أعمالنا</a></li>
+          <li><a class="nav__link" href="#pricing" data-i18n="nav.pricing">الأسعار</a></li>
+          <li><a class="nav__link" href="#faq" data-i18n="nav.faq">أسئلة</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button type="button" class="lang-toggle" data-lang-toggle aria-label="Switch to English" data-i18n-attr="aria-label:lang.switch">
+          <span class="lang-toggle__opt" lang="ar" aria-hidden="true">ع</span>
+          <span class="lang-toggle__sep" aria-hidden="true"></span>
+          <span class="lang-toggle__opt" lang="en" aria-hidden="true">EN</span>
+        </button>
+        <a class="btn btn--ghost btn--sm header__cta" href="#contact" data-i18n="nav.cta">احجز استشارة</a>
+        <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="افتح القائمة">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="menu" id="mobileMenu">
+    <nav aria-label="القائمة الرئيسية" data-i18n-attr="aria-label:nav.label">
+      <ul class="menu__list">
+        <li class="menu__item" style="--i: 0"><a class="menu__link" href="#services" data-i18n="nav.services">الخدمات</a></li>
+        <li class="menu__item" style="--i: 1"><a class="menu__link" href="#process" data-i18n="nav.process">إزاي بنشتغل</a></li>
+        <li class="menu__item" style="--i: 2"><a class="menu__link" href="#work" data-i18n="nav.work">أعمالنا</a></li>
+        <li class="menu__item" style="--i: 3"><a class="menu__link" href="#pricing" data-i18n="nav.pricing">الأسعار</a></li>
+        <li class="menu__item" style="--i: 4"><a class="menu__link" href="#faq" data-i18n="nav.faq">أسئلة</a></li>
+      </ul>
+    </nav>
+    <div class="menu__footer datum">
+      <a class="btn btn--primary btn--lg" href="#contact" data-i18n="hero.ctaPrimary">احجز استشارة مجانية</a>
+      <p class="menu__note" data-i18n="menu.note">استشارة 20 دقيقة مجانية، من غير أي التزام.</p>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="heroTitle">
+      <div class="hero__bg" id="heroGrid" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <div class="hero__copy">
+          <h1 class="hero__title" id="heroTitle" data-i18n="hero.title">برمجة وأتمتة تخلّي شغلك يمشي من غيرك</h1>
+          <p class="hero__sub" data-i18n="hero.sub">بوابتك بتبني الأنظمة والتطبيقات والأتمتة اللي بتشيل الشغل اليدوي من على فريقك، وبتسلّمها شغّالة، مش سلايدات.</p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="#contact">
+              <span data-i18n="hero.ctaPrimary">احجز استشارة مجانية</span>
+              <svg class="icon icon--dir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M5 12h14"/>
+                <path d="M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+            <a class="btn btn--quiet btn--lg" href="#work" data-i18n="hero.ctaSecondary">شوف أعمالنا</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="arch hero__arch" id="heroArch">
+            <span class="hero__tick hero__tick--start"></span>
+            <span class="hero__tick hero__tick--end"></span>
+            <span class="hero__key"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__base" id="heroBase">
+        <div class="container">
+          <div class="datum">
+            <!-- PLACEHOLDER: the three figures below come from the brief, not from an audited
+                 source. Confirm them with Bawabtak before launch or replace them. -->
+            <ul class="trust" aria-label="أرقام بوابتك" data-i18n-attr="aria-label:hero.trustLabel">
+              <li class="trust__item">
+                <span class="trust__num">40+</span>
+                <span class="trust__label" data-i18n="hero.trust1">مشروع مسلّم</span>
+              </li>
+              <li class="trust__item">
+                <span class="trust__num">6</span>
+                <span class="trust__label" data-i18n="hero.trust2">أسابيع متوسط التسليم</span>
+              </li>
+              <li class="trust__item">
+                <span class="trust__num">3</span>
+                <span class="trust__label" data-i18n="hero.trust3">شهور دعم بعد التسليم</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 2: results strip, services, automation flow, process, work, stack,
+         why Bawabtak, pricing, testimonials, FAQ, contact form. -->
+  </main>
+
+  <!-- PHASE 2: footer -->
+</body>
+</html>

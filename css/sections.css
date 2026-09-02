@@ -1,0 +1,311 @@
+/* ==========================================================================
+   بوابتك - Sections: hero (phase 1)
+   Composition: copy on the start side, the gateway standing on the end side,
+   both on one ground line (the datum). The floor grid converges into the
+   opening. Trust figures sit on the floor under the datum.
+   ========================================================================== */
+@layer sections {
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    min-block-size: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding-block-start: calc(var(--header-h) + var(--sp-32));
+  }
+
+  /* WebGL floor grid lives here; it draws only below the datum line and
+     fades out toward the bottom edge of the hero. */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  .hero__canvas {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    opacity: 0;
+    transition: opacity 900ms var(--ease);
+  }
+
+  .hero__canvas.is-ready {
+    opacity: 1;
+  }
+
+  /* ---------- Upper row: copy + gateway ---------- */
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    flex: 1 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    column-gap: var(--sp-48);
+  }
+
+  .hero__copy {
+    align-self: center;
+    padding-block: var(--sp-32) var(--sp-64);
+  }
+
+  .hero__title {
+    max-inline-size: 22ch;
+  }
+
+  html[lang="en"] .hero__title {
+    font-size: var(--step-3);
+    letter-spacing: -0.02em;
+  }
+
+  .hero__sub {
+    margin-block-start: var(--sp-24);
+    max-inline-size: 42ch;
+    color: var(--text-muted);
+    font-size: var(--step-0);
+    line-height: var(--lh-body);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-12) var(--sp-16);
+    margin-block-start: var(--sp-32);
+  }
+
+  /* The gateway: a drawn opening standing on the datum line */
+  .hero__visual {
+    position: relative;
+    min-inline-size: 0;
+    min-block-size: calc(var(--arch-w) * 1.4);
+  }
+
+  .hero__arch {
+    position: absolute;
+    inset-block: 0;
+    inset-inline: 0;
+    margin-inline: auto;
+    margin-block-start: auto;
+    inline-size: var(--arch-w);
+    max-block-size: calc(var(--arch-w) * 2.2);
+  }
+
+  /* Springing-line ticks: where the arc meets the jambs, like a drawing */
+  .hero__tick {
+    position: absolute;
+    inset-block-start: calc(var(--arch-w) / 2);
+    inline-size: var(--sp-8);
+    block-size: 1px;
+    background: var(--line-strong);
+  }
+
+  .hero__tick--start {
+    inset-inline-start: calc((var(--sp-12) + var(--sp-4)) * -1);
+  }
+
+  .hero__tick--end {
+    inset-inline-end: calc((var(--sp-12) + var(--sp-4)) * -1);
+  }
+
+  /* The threshold key: the one accent mark in the hero */
+  .hero__key {
+    position: absolute;
+    inset-block-end: calc(var(--sp-4) / -2);
+    inset-inline: 0;
+    margin-inline: auto;
+    inline-size: var(--sp-4);
+    block-size: var(--sp-4);
+    background: var(--accent);
+  }
+
+  /* ---------- Floor: datum line + trust layer ---------- */
+  .hero__base {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    padding-block-end: var(--sp-48);
+  }
+
+  /* Static grid paper under the floor: the fallback when WebGL is off
+     (no JS, reduced motion, low-end devices). Minor and major lines. */
+  .hero__base::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(to right, var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(to right, var(--grid-major) 1px, transparent 1px);
+    background-size:
+      var(--sp-16) var(--sp-16),
+      var(--sp-16) var(--sp-16),
+      var(--sp-64) var(--sp-64),
+      var(--sp-64) var(--sp-64);
+    -webkit-mask-image: linear-gradient(to bottom, #000, transparent 96%);
+    mask-image: linear-gradient(to bottom, #000, transparent 96%);
+    transition: opacity 900ms var(--ease);
+  }
+
+  .hero.has-gl .hero__base::before {
+    opacity: 0;
+  }
+
+  .trust {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    column-gap: var(--sp-48);
+    padding-block-start: var(--sp-24);
+  }
+
+  .trust__item {
+    position: relative;
+    display: grid;
+    gap: var(--sp-8);
+    align-content: start;
+  }
+
+  .trust__item + .trust__item::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: calc(var(--sp-24) * -1);
+    inset-block: var(--sp-4);
+    inline-size: 1px;
+    background: var(--line);
+  }
+
+  .trust__num {
+    font-family: var(--font-mono);
+    font-size: var(--step-2);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .trust__label {
+    max-inline-size: 16ch;
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+
+  /* ---------- Below 900px: single column, the gateway stands behind the
+     copy and runs off the end edge (partially visible) ---------- */
+  @media (max-width: 899px) {
+    .hero {
+      padding-block-start: calc(var(--header-h) + var(--sp-16));
+    }
+
+    .hero__content {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hero__copy {
+      padding-block: var(--sp-32) var(--sp-48);
+    }
+
+    .hero__visual {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      min-block-size: 0;
+    }
+
+    .hero__arch {
+      inset-inline-start: auto;
+      inset-inline-end: 0;
+      margin-inline: 0;
+      max-block-size: calc(var(--arch-w) * 2.4);
+    }
+
+    .hero__sub {
+      max-inline-size: 36ch;
+    }
+  }
+
+  /* Narrow phones: the headline steps down one scale step so it stays at
+     three lines or fewer (Alexandria and Inter both run wide). */
+  @media (max-width: 599px) {
+    .hero__arch {
+      inset-inline-end: calc(var(--arch-w) * -0.35);
+    }
+
+    .hero__title {
+      font-size: var(--step-3);
+    }
+
+    html[lang="en"] .hero__title {
+      font-size: var(--step-2);
+    }
+  }
+
+  @media (max-width: 479px) {
+    .hero__actions .btn {
+      flex: 1 1 100%;
+    }
+
+    .trust {
+      column-gap: var(--sp-24);
+    }
+
+    .trust__item + .trust__item::before {
+      inset-inline-start: calc(var(--sp-12) * -1);
+    }
+  }
+}
+
+/* ==========================================================================
+   Reduced motion: unlayered on purpose so it beats every layer with no
+   !important. Everything collapses to a 1ms opacity change; the animated
+   background is removed entirely.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero__canvas {
+    display: none;
+  }
+
+  .btn:active,
+  .btn--primary:hover,
+  .btn--ghost:hover,
+  .btn--quiet:hover,
+  .skip-link {
+    transform: none;
+  }
+
+  .skip-link:not(:focus-visible) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .menu {
+    transform: none;
+  }
+
+  .menu.is-open .menu__item {
+    animation: none;
+  }
+}

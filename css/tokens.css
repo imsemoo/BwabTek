@@ -1,0 +1,130 @@
+/* ==========================================================================
+   بوابتك - Design tokens
+   Layer order is declared here because this is the first stylesheet parsed.
+   Every colour, size, radius and duration used anywhere lives in this file.
+   ========================================================================== */
+@layer tokens, base, components, sections;
+
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* ---------- Colour ----------
+       Contrast ratios are measured (WCAG 2.x relative luminance), not guessed. */
+    --bg:            #07080B;
+    --surface:       #0D0F14;
+    --surface-2:     #12151C;
+    --border:        rgba(255, 255, 255, .08);
+    --border-strong: rgba(255, 255, 255, .14);
+
+    --text:          #F4F6F8;   /* on --bg 18.49:1 · on --surface 17.69:1 */
+    --text-muted:    #9AA3B2;   /* on --bg 7.87:1 · on --surface 7.54:1 · on --surface-2 7.18:1 */
+    --text-faint:    #78818E;   /* brief value #6B7480 measures 4.23:1 on --bg and fails 4.5:1.
+                                   Adjusted: on --bg 5.08:1 · on --surface 4.86:1 · on --surface-2 4.64:1 */
+
+    --brand:         #2E6BFF;   /* fill only. --on-brand (#FFFFFF) on it 4.50:1.
+                                   As text on --bg it is 4.45:1 and fails, so text uses --brand-hi */
+    --brand-hi:      #5E8CFF;   /* text/border on --bg 6.36:1. Never a fill under white text (3.15:1) */
+    --on-brand:      #FFFFFF;
+    --accent:        #35E0C2;   /* on --bg 12.01:1. Numbers, status, one underline. Never a filled button */
+    --warn:          #FFB020;   /* on --bg 10.95:1 */
+
+    --brand-rgb:     46 107 255;
+    --accent-rgb:    53 224 194;
+
+    /* Translucent helpers (derived, so they stay in the token file) */
+    --glass:         rgba(7, 8, 11, .72);      /* header after 60px scroll */
+    --glass-strong:  rgba(7, 8, 11, .94);      /* mobile menu */
+    --highlight:     rgba(255, 255, 255, .12); /* 1px inner top edge on primary button */
+    --hover-bg:      rgba(255, 255, 255, .04);
+    --active-bg:     rgba(255, 255, 255, .10);
+
+    /* ---------- Gateway grammar ----------
+       The brand device is a drawn architectural opening, not a glow:
+         line       1px hairlines: the arch, the inner jamb, the datum (ground) line, ticks
+         light      one light source, always "beyond" the opening, falling from its top edge
+         grid       engineering paper under the opening, minor + major lines, neutral, converging into the gate
+         key        one 4px accent square at the threshold (the only accent in the hero)
+       Reuse these in later sections: separators (datum), cards (arch top edge + light), diagrams (grid). */
+    --line:          rgba(255, 255, 255, .12);
+    --line-strong:   rgba(255, 255, 255, .24);
+    --light:         rgba(190, 206, 255, .14);
+    --grid-minor:    rgba(214, 222, 236, .06);
+    --grid-major:    rgba(214, 222, 236, .13);
+    --arch-w:        clamp(220px, 23vw, 320px);
+
+    /* ---------- Type ---------- */
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --step--1: clamp(.82rem, .78rem + .2vw, .9rem);
+    --step-0:  clamp(1rem, .95rem + .25vw, 1.125rem);
+    --step-1:  clamp(1.25rem, 1.15rem + .5vw, 1.5rem);
+    --step-2:  clamp(1.6rem, 1.4rem + 1vw, 2.1rem);
+    --step-3:  clamp(2.1rem, 1.7rem + 2vw, 3rem);
+    --step-4:  clamp(2.4rem, 1.8rem + 2.8vw, 3.75rem); /* hero only. Brief had 2.8/4.5rem; tightened so the
+                                                         headline holds 2-3 lines beside the gateway */
+
+    /* ---------- Space (4px scale) ---------- */
+    --sp-4:   4px;
+    --sp-8:   8px;
+    --sp-12:  12px;
+    --sp-16:  16px;
+    --sp-24:  24px;
+    --sp-32:  32px;
+    --sp-48:  48px;
+    --sp-64:  64px;
+    --sp-96:  96px;
+    --sp-128: 128px;
+
+    --section-y: clamp(72px, 9vw, 144px);
+    --container: 1200px;
+    --gutter:    clamp(20px, 5vw, 40px);
+    --header-h:  64px;
+    --touch:     44px;
+
+    /* ---------- Radius (concentric: outer 20 → inner at 8px inset = 12) ---------- */
+    --r-sm:   10px;
+    --r-md:   14px;
+    --r-lg:   20px;
+    --r-pill: 999px;
+
+    /* ---------- Motion ---------- */
+    --ease:     cubic-bezier(.22, .61, .36, 1);
+    --dur-fast: 140ms;   /* interaction feedback, never above 150ms */
+    --dur-ui:   220ms;   /* hover, accordion, header glass */
+    --dur-in:   520ms;   /* scroll reveal */
+    --stagger:  60ms;    /* max 5 items in a chain */
+
+    /* ---------- Layers ---------- */
+    --z-menu:   40;
+    --z-header: 50;
+    --z-skip:   100;
+
+    /* ---------- Direction & language (overridden per lang below) ---------- */
+    --dir: -1;
+    --measure: 62ch;
+    --lh-heading: 1.25;
+    --lh-body: 1.85;
+    --lh-lead: 1.7;
+  }
+
+  /* Arabic: geometric sans, taller leading, RTL motion multiplier */
+  html[lang="ar"] {
+    --font-sans: "Alexandria", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --dir: -1;
+    --measure: 62ch;
+    --lh-heading: 1.25;
+    --lh-body: 1.85;
+    --lh-lead: 1.7;
+  }
+
+  /* English: Inter, tighter leading, LTR motion multiplier */
+  html[lang="en"] {
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --dir: 1;
+    --measure: 68ch;
+    --lh-heading: 1.1;
+    --lh-body: 1.6;
+    --lh-lead: 1.5;
+  }
+}
