@@ -137,10 +137,16 @@
     background: var(--accent);
   }
 
-  /* A datum that only rules a line, with no mark on it */
+  /* A datum that only rules a line, with no mark on it. Most sections use this:
+     the notch is worth more when it appears three times than thirteen. */
   .datum--plain::before,
   .datum--plain::after {
     content: none;
+  }
+
+  /* A datum used as a section rule, holding the content clear of the line */
+  .datum--section {
+    padding-block-start: var(--sp-48);
   }
 
   .gateway {
@@ -478,18 +484,19 @@
      ========================================================================== */
   .section-head {
     display: grid;
-    gap: var(--sp-16);
-    padding-block-start: var(--sp-32);
+    gap: var(--sp-24);
   }
 
   .section-head__title {
-    max-inline-size: 22ch;
+    max-inline-size: 20ch;
+    text-wrap: balance;
   }
 
   .section-head__sub {
-    max-inline-size: 52ch;
+    max-inline-size: 46ch;
     color: var(--text-muted);
-    font-size: var(--step-0);
+    font-size: var(--step-lead);
+    line-height: var(--lh-lead);
   }
 
   /* A figure and its label: mono number, quiet caption, hung off a leader.
@@ -515,6 +522,7 @@
   .figure__num {
     font-family: var(--font-mono);
     font-size: var(--step-2);
+    letter-spacing: -0.02em;
     font-weight: 500;
     line-height: 1;
     color: var(--text);
@@ -522,8 +530,8 @@
   }
 
   .figure__label {
-    max-inline-size: 18ch;
-    font-size: var(--step--1);
+    max-inline-size: 20ch;
+    font-size: var(--step-0);
     line-height: 1.5;
     color: var(--text-muted);
     text-wrap: pretty;
@@ -538,8 +546,8 @@
     position: relative;
     display: grid;
     align-content: start;
-    gap: var(--sp-12);
-    padding: var(--sp-24);
+    gap: var(--sp-16);
+    padding: var(--sp-32);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     background: var(--surface);
@@ -562,8 +570,9 @@
   }
 
   .card__icon {
-    inline-size: var(--sp-24);
-    block-size: var(--sp-24);
+    inline-size: var(--sp-32);
+    block-size: var(--sp-32);
+    margin-block-end: var(--sp-8);
     color: var(--text-muted);
     transition: color var(--dur-ui) var(--ease);
   }
@@ -577,7 +586,7 @@
   .card__body {
     max-inline-size: 46ch;
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.7;
   }
 
@@ -595,6 +604,80 @@
     .card:hover .card__icon {
       color: var(--text);
     }
+  }
+
+  /* ==========================================================================
+     FRAME
+     The opening expressed as an aperture: a ruled panel with a tick cut into
+     each corner, the way a drawing is cropped. It holds a figure now and takes
+     a real screenshot the day there is one.
+     ========================================================================== */
+  .frame {
+    position: relative;
+    display: grid;
+    place-content: center;
+    gap: var(--sp-12);
+    padding: var(--sp-48) var(--sp-32);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* engineering paper, only inside the aperture */
+  .frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(to right, var(--grid-minor) 1px, transparent 1px);
+    background-size: var(--sp-24) var(--sp-24);
+    -webkit-mask-image: radial-gradient(120% 90% at 50% 100%, #000, transparent 72%);
+    mask-image: radial-gradient(120% 90% at 50% 100%, #000, transparent 72%);
+  }
+
+  .frame__tick {
+    position: absolute;
+    inline-size: var(--sp-16);
+    block-size: var(--sp-16);
+    border: 1px solid var(--line-strong);
+  }
+
+  .frame__tick:nth-child(1) {
+    inset-block-start: var(--sp-12);
+    inset-inline-start: var(--sp-12);
+    border-block-end: 0;
+    border-inline-end: 0;
+  }
+
+  .frame__tick:nth-child(2) {
+    inset-block-start: var(--sp-12);
+    inset-inline-end: var(--sp-12);
+    border-block-end: 0;
+    border-inline-start: 0;
+  }
+
+  .frame__tick:nth-child(3) {
+    inset-block-end: var(--sp-12);
+    inset-inline-start: var(--sp-12);
+    border-block-start: 0;
+    border-inline-end: 0;
+  }
+
+  .frame__tick:nth-child(4) {
+    inset-block-end: var(--sp-12);
+    inset-inline-end: var(--sp-12);
+    border-block-start: 0;
+    border-inline-start: 0;
+  }
+
+  .frame__body {
+    position: relative;
+    display: grid;
+    gap: var(--sp-8);
+    justify-items: center;
   }
 
   .badge {
@@ -665,12 +748,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--sp-16);
-    min-block-size: var(--touch);
-    padding-block: var(--sp-16);
+    gap: var(--sp-24);
+    min-block-size: calc(var(--touch) + var(--sp-24));
+    padding-block: var(--sp-24);
     font-size: var(--step-1);
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.35;
     cursor: pointer;
     list-style: none;
     transition: color var(--dur-ui) var(--ease);
@@ -690,8 +773,8 @@
   .faq__sign {
     position: relative;
     flex: none;
-    inline-size: var(--sp-16);
-    block-size: var(--sp-16);
+    inline-size: var(--sp-24);
+    block-size: var(--sp-24);
   }
 
   .faq__sign::before,
@@ -715,8 +798,8 @@
   }
 
   .faq__a {
-    max-inline-size: 68ch;
-    padding-block-end: var(--sp-24);
+    max-inline-size: 62ch;
+    padding-block-end: var(--sp-32);
     color: var(--text-muted);
     font-size: var(--step-0);
     line-height: var(--lh-body);

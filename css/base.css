@@ -187,8 +187,54 @@
     padding-inline: var(--gutter);
   }
 
+  /* Three densities. A page that breathes the same amount everywhere reads as a
+     document; changing the rhythm is what makes it read as a designed page. */
   .section {
     padding-block: var(--section-y);
+  }
+
+  .section--tight {
+    padding-block: var(--section-tight);
+  }
+
+  .section--loose {
+    padding-block: var(--section-loose);
+  }
+
+  /* A section set back from the page, separated by tone rather than by a rule */
+  .section--panel {
+    background: var(--surface-sunken);
+    border-block: 1px solid var(--border);
+  }
+
+  /* ---------- The desktop grid ----------
+     Twelve columns from 1024px up, one column below it. Sections place content
+     on it deliberately; nothing is centred by default. */
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-32) var(--col-gap);
+  }
+
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    /* grid-column-end, not the shorthand: the shorthand resets the start line,
+       so .col-7.start-6 would collapse to a single column. */
+    .col-3 { grid-column-end: span 3; }
+    .col-4 { grid-column-end: span 4; }
+    .col-5 { grid-column-end: span 5; }
+    .col-6 { grid-column-end: span 6; }
+    .col-7 { grid-column-end: span 7; }
+    .col-8 { grid-column-end: span 8; }
+    .col-12 { grid-column-end: span 12; }
+
+    .start-2 { grid-column-start: 2; }
+    .start-6 { grid-column-start: 6; }
+    .start-7 { grid-column-start: 7; }
+    .start-8 { grid-column-start: 8; }
   }
 
   .visually-hidden {

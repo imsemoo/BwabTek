@@ -1,11 +1,21 @@
 /* ==========================================================================
-   بوابتك - Sections: hero (phase 1)
-   Composition: copy on the start side, the gateway standing on the end side,
-   both on one ground line (the datum). The floor grid converges into the
-   opening. Trust figures sit on the floor under the datum.
+   بوابتك - Sections
+
+   The page is one composition, not a stack of identical blocks. Every section
+   sits on the same twelve columns and speaks the same drawn language, but no
+   two share a shape: the services grid is an asymmetric bento, the automation
+   band is a full-width rail on a sunken surface, the work section is three
+   alternating apertures, the FAQ is a split with a heading that holds its
+   place, and the closing gate answers the hero.
+
+   Density changes with it: tight, default, loose.
    ========================================================================== */
 @layer sections {
-  /* ---------- Hero ---------- */
+  /* ==========================================================================
+     HERO
+     Copy on the start side, the gateway standing on the end side, both on one
+     ground line. The floor grid converges into the opening.
+     ========================================================================== */
   .hero {
     position: relative;
     isolation: isolate;
@@ -16,9 +26,8 @@
     padding-block-start: calc(var(--header-h) + var(--sp-32));
   }
 
-  /* WebGL floor grid lives here. It draws only below the datum line, so the
-     mask may only soften the last sliver of the hero. Fading it any higher
-     erases the floor itself. */
+  /* The floor draws only below the datum, so the mask may only soften the last
+     sliver of the hero. Fading it any higher erases the floor itself. */
   .hero__bg {
     position: absolute;
     inset: 0;
@@ -41,12 +50,14 @@
     opacity: 1;
   }
 
-  /* ---------- Upper row: copy + gateway ---------- */
   .hero__content {
     position: relative;
     z-index: 1;
     flex: 1 0 auto;
     display: grid;
+    /* 8/4 rather than 7/5: the wider container already gives the gateway more
+       absolute room than it had, and the extra column keeps the English
+       headline at three lines instead of four. */
     grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
     column-gap: var(--sp-48);
   }
@@ -63,7 +74,7 @@
   .hero__title {
     max-inline-size: 20ch;
     font-weight: 600;
-    line-height: 1.8;
+    line-height: 1.2;
   }
 
   /* Inter sets a shorter em than Alexandria, so the same ch count would break
@@ -77,10 +88,10 @@
 
   .hero__sub {
     margin-block-start: var(--sp-24);
-    max-inline-size: 40ch;
+    max-inline-size: 44ch;
     color: var(--text-muted);
-    font-size: var(--step-0);
-    line-height: var(--lh-body);
+    font-size: var(--step-lead);
+    line-height: var(--lh-lead);
   }
 
   .hero__actions {
@@ -91,7 +102,6 @@
     margin-block-start: var(--sp-32);
   }
 
-  /* The gateway: a drawn opening standing on the datum line */
   .hero__visual {
     position: relative;
     min-inline-size: 0;
@@ -110,7 +120,6 @@
     max-block-size: calc(var(--arch-w) * 1.7);
   }
 
-  /* ---------- Floor: datum line + trust layer ---------- */
   .hero__base {
     position: relative;
     z-index: 1;
@@ -118,8 +127,8 @@
     padding-block-end: var(--sp-48);
   }
 
-  /* Static grid paper under the floor: the fallback when WebGL is off
-     (no JS, reduced motion, low-end devices). Minor and major lines. */
+  /* Static grid paper: the fallback when WebGL is off (no JS, reduced motion,
+     low-end devices). Minor and major lines. */
   .hero__base::before {
     content: "";
     position: absolute;
@@ -148,12 +157,11 @@
     display: grid;
     grid-template-columns: repeat(3, auto);
     justify-content: start;
-    column-gap: var(--sp-64);
+    column-gap: clamp(var(--sp-32), 6vw, var(--sp-96));
   }
 
   /* Each figure hangs from the datum on its own leader, the way a dimension is
-     called out on a drawing. That is what ties the numbers to the architecture
-     instead of leaving them as a statistics row parked under the line. */
+     called out on a drawing. */
   .trust__item {
     position: relative;
     display: grid;
@@ -177,20 +185,20 @@
     font-size: var(--step-2);
     font-weight: 500;
     line-height: 1;
+    letter-spacing: -0.02em;
     color: var(--text);
     font-variant-numeric: tabular-nums;
   }
 
   .trust__label {
-    max-inline-size: 16ch;
-    font-size: var(--step--1);
+    max-inline-size: 18ch;
+    font-size: var(--step-0);
     line-height: 1.5;
     color: var(--text-muted);
     text-wrap: pretty;
   }
 
-  /* ---------- Below 900px: single column, the gateway stands behind the
-     copy and runs off the end edge (partially visible) ---------- */
+  /* ---------- One column: the gateway stands behind the copy ---------- */
   @media (max-width: 899px) {
     .hero {
       --arch-w: clamp(240px, 46vw, 420px);
@@ -220,8 +228,8 @@
       max-block-size: calc(var(--arch-w) * 2.6);
     }
 
-    /* Behind the copy the opening is drawn, not filled: the soffit planes come
-       off so the headline never sits on a soft grey mass. */
+    /* Behind the copy the opening is drawn, not filled, so the headline never
+       sits on a soft grey mass. */
     .hero__arch .gateway__order {
       background: none;
     }
@@ -235,8 +243,6 @@
     }
   }
 
-  /* Narrow phones: the headline steps down one scale step so it stays at
-     three lines or fewer (Alexandria and Inter both run wide). */
   @media (max-width: 599px) {
     .hero__arch {
       inset-inline-end: calc(var(--arch-w) * -0.35);
@@ -263,47 +269,16 @@
   }
 
   /* ==========================================================================
-     RESULTS
-     Three figures on one line, straight under the hero. No cards.
-     ========================================================================== */
-  .results {
-    padding-block: var(--sp-48);
-  }
-
-  .results__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--sp-32);
-    padding-block-start: var(--sp-8);
-  }
-
-  .results .figure__num {
-    color: var(--brand-hi);
-  }
-
-  @media (max-width: 719px) {
-    .results__grid {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-24);
-    }
-  }
-
-  /* ==========================================================================
-     SERVICES
-     Automation is the competitive difference, so it takes a tile twice as wide
-     and twice as tall and comes first. Cell count matches item count exactly at
-     every breakpoint, so no blank tiles are ever left over.
+     SERVICES - an asymmetric bento
+     Automation is the competitive difference, so it holds a tile seven columns
+     wide and two rows tall. Cell count matches item count exactly at every
+     breakpoint, so no blank tile is ever left over.
      ========================================================================== */
   .services__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--sp-16);
-    padding-block-start: var(--sp-48);
-  }
-
-  .services__item--lead .card__body {
-    font-size: var(--step-0);
-    max-inline-size: 40ch;
+    gap: var(--col-gap);
+    margin-block-start: var(--sp-64);
   }
 
   @media (min-width: 640px) and (max-width: 1023px) {
@@ -320,32 +295,45 @@
 
   @media (min-width: 1024px) {
     .services__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(12, minmax(0, 1fr));
     }
 
-    /* 4 + 5 = 9 cells over three rows */
+    /* 7 + 5 / 7 + 5 / 4 + 4 + 4 */
+    .services__item { grid-column: span 4; }
+    .services__item--wide { grid-column: span 5; }
+
     .services__item--lead {
-      grid-column: span 2;
+      grid-column: span 7;
       grid-row: span 2;
-      padding: var(--sp-32);
+      padding: var(--sp-48);
+      align-content: end;
+      gap: var(--sp-24);
+    }
+
+    .services__item--lead .card__icon {
+      inline-size: var(--sp-48);
+      block-size: var(--sp-48);
     }
 
     .services__item--lead .card__title {
       font-size: var(--step-2);
     }
+
+    .services__item--lead .card__body {
+      max-inline-size: 40ch;
+      font-size: var(--step-lead);
+      line-height: var(--lh-lead);
+    }
   }
 
   /* ==========================================================================
-     AUTOMATION
-     The star section. An order enters one gate and leaves the last one as an
-     invoice; a single light runs the rail and lights each gate as it passes.
+     AUTOMATION - the immersive band
+     A sunken surface, a rail across the full width, and one light running it.
      ========================================================================== */
-  /* The spark wrapper is as wide as the rail and travels its own width, so it
-     has to be clipped or it drags the page wider than the viewport. */
   .automation__flow {
     position: relative;
-    overflow: clip;
-    padding-block-start: var(--sp-64);
+    overflow: clip;               /* the spark travels its own width */
+    margin-block-start: var(--sp-96);
   }
 
   .flow__rail {
@@ -382,28 +370,28 @@
   .flow__steps {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--sp-16);
+    gap: var(--col-gap);
   }
 
   .flow__step {
     display: grid;
     justify-items: center;
-    gap: var(--sp-8);
-    padding-block-start: var(--sp-24);
+    gap: var(--sp-12);
+    padding-block-start: var(--sp-32);
     text-align: center;
   }
 
-  /* The same notch as the datum signature: every stage is a gate */
+  /* The opening at its smallest: every stage is a gate the work passes through */
   .flow__gate {
     position: relative;
     inline-size: var(--sp-24);
     block-size: var(--sp-12);
-    margin-block-start: calc(var(--sp-12) * -1 - var(--sp-24));
+    margin-block-start: calc(var(--sp-12) * -1 - var(--sp-32));
     border: 1px solid var(--line-strong);
     border-block-end: 0;
     border-start-start-radius: var(--r-pill);
     border-start-end-radius: var(--r-pill);
-    background: var(--bg);
+    background: var(--surface-sunken);
   }
 
   .flow__gate::after {
@@ -426,34 +414,38 @@
   }
 
   .flow__title {
-    font-size: var(--step-0);
+    font-size: var(--step-1);
     font-weight: 600;
     line-height: 1.3;
   }
 
   .flow__desc {
-    max-inline-size: 22ch;
+    max-inline-size: 24ch;
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.6;
   }
 
+  /* The outcome of the diagram, set large enough to be read on its own */
   .automation__metrics {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--sp-32);
-    max-inline-size: 640px;
-    padding-block-start: var(--sp-64);
+    gap: var(--col-gap);
+    margin-block-start: var(--sp-96);
+  }
+
+  .automation__metrics .figure__num {
+    font-size: var(--step-3);
   }
 
   .automation__cta {
-    padding-block-start: var(--sp-48);
+    margin-block-start: var(--sp-64);
   }
 
-  /* Below 720px the rail turns and runs down the start edge */
-  @media (max-width: 719px) {
+  /* Below 900px the rail turns and runs down the start edge */
+  @media (max-width: 899px) {
     .automation__flow {
-      padding-block-start: var(--sp-48);
+      margin-block-start: var(--sp-48);
     }
 
     .flow__rail {
@@ -514,71 +506,89 @@
 
     .automation__metrics {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-24);
-      padding-block-start: var(--sp-48);
+      gap: var(--sp-32);
+      margin-block-start: var(--sp-48);
     }
   }
 
   /* ==========================================================================
-     PROCESS
-     Four steps hung off one datum, numbered in mono.
+     PROCESS - a measured run
+     Four stages on one datum, numbered in mono, with a single filled square at
+     the threshold to give the run a direction. No arrows, no chevrons.
      ========================================================================== */
+  .process__run {
+    position: relative;
+    margin-block-start: var(--sp-64);
+    padding-block-start: var(--sp-32);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .process__run::before {
+    content: "";
+    position: absolute;
+    inset-block-start: calc(var(--sp-4) * -1 - 1px);
+    inset-inline-start: 0;
+    inline-size: var(--sp-8);
+    block-size: var(--sp-8);
+    background: var(--line-strong);
+  }
+
   .process__steps {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--sp-32);
-    padding-block-start: var(--sp-48);
+    gap: var(--col-gap);
   }
 
   .process__step {
     position: relative;
     display: grid;
     align-content: start;
-    gap: var(--sp-8);
+    gap: var(--sp-12);
     padding-block-start: var(--sp-24);
-    border-block-start: 1px solid var(--border);
   }
 
   .process__step::before {
     content: "";
     position: absolute;
-    inset-block-start: 0;
+    inset-block-start: calc(var(--sp-32) * -1 - 1px);
     inset-inline-start: 0;
     inline-size: 1px;
-    block-size: var(--sp-12);
+    block-size: var(--sp-32);
     background: var(--line-strong);
   }
 
   .process__num {
     font-family: var(--font-mono);
-    font-size: var(--step--1);
+    font-size: var(--step-1);
     color: var(--text-faint);
+    line-height: 1;
     font-variant-numeric: tabular-nums;
   }
 
   .process__title {
-    font-size: var(--step-1);
+    font-size: var(--step-2);
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
   .process__desc {
     max-inline-size: 30ch;
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.7;
   }
 
   @media (max-width: 899px) {
     .process__steps {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--sp-48);
     }
   }
 
   @media (max-width: 559px) {
     .process__steps {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-24);
+      row-gap: var(--sp-32);
     }
 
     .process__desc {
@@ -587,154 +597,194 @@
   }
 
   /* ==========================================================================
-     WORK
-     Wide rows rather than a third card grid: metric on the start side, the
-     story beside it, one rule between.
+     WORK - the anchor
+     Three apertures, alternating sides. The aperture is the gateway read as a
+     cropped frame; the number inside it is what the client got, at the largest
+     type on the page after the headline.
      ========================================================================== */
   .work__list {
     display: grid;
-    padding-block-start: var(--sp-48);
+    gap: var(--sp-96);
+    margin-block-start: var(--sp-64);
   }
 
   .work__row {
     display: grid;
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-32);
-    padding-block: var(--sp-32);
-    border-block-start: 1px solid var(--border);
+    align-items: center;
   }
 
-  .work__row:last-child {
-    border-block-end: 1px solid var(--border);
-  }
-
-  .work__metric {
-    display: grid;
-    align-content: start;
-    gap: var(--sp-8);
+  .work__frame {
+    min-block-size: clamp(240px, 26vw, 360px);
   }
 
   .work__num {
     font-family: var(--font-mono);
-    font-size: var(--step-3);
+    font-size: var(--step-5);
     font-weight: 500;
-    line-height: 1;
-    color: var(--text);
+    line-height: .95;
+    letter-spacing: -0.03em;
+    color: var(--brand-hi);
     font-variant-numeric: tabular-nums;
   }
 
   .work__unit {
-    max-inline-size: 20ch;
+    max-inline-size: 22ch;
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.5;
   }
 
   .work__body {
     display: grid;
-    align-content: start;
-    gap: var(--sp-8);
+    align-content: center;
+    gap: var(--sp-16);
   }
 
   .work__title {
-    font-size: var(--step-1);
+    font-size: var(--step-2);
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
+    text-wrap: balance;
   }
 
   .work__problem {
-    max-inline-size: 56ch;
+    max-inline-size: 48ch;
     color: var(--text-muted);
-    line-height: var(--lh-body);
+    font-size: var(--step-lead);
+    line-height: var(--lh-lead);
   }
 
-  @media (max-width: 719px) {
+  @media (min-width: 1024px) {
     .work__row {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-16);
-      padding-block: var(--sp-24);
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--col-gap);
     }
+
+    .work__row .work__frame { grid-column: 1 / span 5; }
+    .work__row .work__body { grid-column: 7 / span 6; }
+
+    /* the middle case turns the composition around */
+    .work__row--flip .work__frame { grid-column: 8 / span 5; }
+    .work__row--flip .work__body { grid-column: 1 / span 6; }
   }
 
   /* ==========================================================================
-     STACK
-     The single marquee on the page.
+     STACK - a tight band
      ========================================================================== */
   .stack__title {
-    max-inline-size: 30ch;
+    max-inline-size: 24ch;
     font-size: var(--step-2);
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
+    text-wrap: balance;
   }
 
   .stack__marquee {
-    padding-block-start: var(--sp-32);
+    margin-block-start: var(--sp-48);
   }
 
   /* ==========================================================================
-     WHY
-     Four points on hairlines. No cards: the rules do the grouping.
+     WHY - four columns divided by rules
+     Vertical hairlines rather than the top rules the process uses, so the two
+     text sections never read as the same block twice.
      ========================================================================== */
   .why__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--sp-48);
-    padding-block-start: var(--sp-48);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--col-gap);
+    margin-block-start: var(--sp-64);
   }
 
   .why__item {
+    position: relative;
     display: grid;
     align-content: start;
-    gap: var(--sp-12);
-    padding-block-start: var(--sp-24);
-    border-block-start: 1px solid var(--border);
+    gap: var(--sp-16);
+    padding-inline-start: var(--sp-32);
+  }
+
+  .why__item::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    inline-size: 1px;
+    background: var(--border);
   }
 
   .why__title {
     font-size: var(--step-1);
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
   }
 
   .why__body {
-    max-inline-size: 44ch;
+    max-inline-size: 32ch;
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.7;
   }
 
-  @media (max-width: 719px) {
+  @media (max-width: 899px) {
+    .why__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--sp-48);
+    }
+  }
+
+  @media (max-width: 559px) {
     .why__grid {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-32);
+      row-gap: var(--sp-32);
+    }
+
+    .why__body {
+      max-inline-size: 44ch;
     }
   }
 
   /* ==========================================================================
      PRICING
-     Three tiers, the middle one raised by a brand border rather than by a glow.
+     One plan is chosen more often than the others, so it is a different object:
+     a brand rule across its head, a tinted surface, more room, a bigger figure.
      ========================================================================== */
   .pricing__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--sp-16);
-    align-items: start;
-    padding-block-start: var(--sp-48);
+    gap: var(--col-gap);
+    align-items: stretch;
+    margin-block-start: var(--sp-64);
   }
 
   .plan {
+    position: relative;
     display: grid;
     align-content: start;
     gap: var(--sp-16);
-    padding: var(--sp-32) var(--sp-24);
+    padding: var(--sp-32);
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     background: var(--surface);
   }
 
   .plan--lead {
+    padding: var(--sp-48) var(--sp-32);
     border-color: var(--brand);
-    background: var(--surface-2);
+    background:
+      linear-gradient(var(--brand-wash), var(--brand-wash)),
+      var(--surface-2);
+  }
+
+  /* the brand rule that marks the chosen plan, drawn along its head */
+  .plan--lead::before {
+    content: "";
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline: var(--sp-32);
+    block-size: 2px;
+    background: var(--brand);
   }
 
   .plan__head {
@@ -742,18 +792,18 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--sp-8);
+    gap: var(--sp-12);
   }
 
   .plan__name {
     font-size: var(--step-1);
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
   }
 
   .plan__who {
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.5;
   }
 
@@ -762,7 +812,9 @@
     align-items: baseline;
     flex-wrap: wrap;
     gap: var(--sp-8);
-    padding-block-start: var(--sp-8);
+    margin-block-start: var(--sp-16);
+    padding-block-end: var(--sp-24);
+    border-block-end: 1px solid var(--border);
   }
 
   .plan__from {
@@ -775,18 +827,24 @@
     font-size: var(--step-2);
     font-weight: 500;
     line-height: 1;
+    letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
+  }
+
+  .plan--lead .plan__amount {
+    font-size: var(--step-3);
+    color: var(--brand-hi);
   }
 
   .plan__currency {
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
   }
 
   .plan__features {
     display: grid;
-    gap: var(--sp-12);
-    padding-block-start: var(--sp-8);
+    gap: var(--sp-16);
+    margin-block-start: var(--sp-8);
   }
 
   /* A dimension tick, not a check icon: the same line language as everything else */
@@ -794,14 +852,14 @@
     position: relative;
     padding-inline-start: var(--sp-24);
     color: var(--text-muted);
-    font-size: var(--step--1);
-    line-height: 1.6;
+    font-size: var(--step-0);
+    line-height: 1.5;
   }
 
   .plan__feature::before {
     content: "";
     position: absolute;
-    inset-block-start: .72em;
+    inset-block-start: .7em;
     inset-inline-start: 0;
     inline-size: var(--sp-12);
     block-size: 1px;
@@ -809,14 +867,14 @@
   }
 
   .plan .btn {
-    margin-block-start: var(--sp-8);
+    margin-block-start: var(--sp-16);
   }
 
   .pricing__note {
     max-inline-size: 60ch;
-    padding-block-start: var(--sp-24);
+    margin-block-start: var(--sp-32);
     color: var(--text-faint);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
   }
 
   @media (max-width: 899px) {
@@ -824,39 +882,61 @@
       grid-template-columns: minmax(0, 1fr);
       max-inline-size: 560px;
     }
+
+    .plan--lead {
+      padding: var(--sp-32);
+    }
   }
 
   /* ==========================================================================
      QUOTES
+     Set on a surface with the quote at subheading size, each opening with a
+     threshold tick rather than with a quotation glyph.
      ========================================================================== */
   .quotes__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--sp-32);
-    padding-block-start: var(--sp-48);
+    gap: var(--col-gap);
+    margin-block-start: var(--sp-64);
   }
 
   .quote {
+    position: relative;
     display: grid;
     align-content: start;
-    gap: var(--sp-16);
-    padding-block-start: var(--sp-24);
-    border-block-start: 1px solid var(--border);
+    gap: var(--sp-24);
+    padding: var(--sp-32);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+  }
+
+  .quote::before {
+    content: "";
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: var(--sp-32);
+    inline-size: var(--sp-32);
+    block-size: 1px;
+    background: var(--line-strong);
   }
 
   .quote__body {
     font-size: var(--step-1);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.5;
+    text-wrap: pretty;
   }
 
   .quote__who {
     display: grid;
     gap: var(--sp-4);
+    padding-block-start: var(--sp-16);
+    border-block-start: 1px solid var(--border);
   }
 
   .quote__name {
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     font-weight: 600;
   }
 
@@ -868,34 +948,77 @@
   @media (max-width: 899px) {
     .quotes__grid {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-24);
     }
   }
 
   /* ==========================================================================
-     FAQ
+     FAQ - a split with a heading that holds its place
      ========================================================================== */
+  .faq__head {
+    align-self: start;
+  }
+
+  @media (min-width: 1024px) {
+    .faq__head {
+      position: sticky;
+      inset-block-start: calc(var(--header-h) + var(--sp-48));
+    }
+  }
+
   .faq__list {
-    max-inline-size: 860px;
-    padding-block-start: var(--sp-48);
     border-block-start: 1px solid var(--border);
   }
 
   /* ==========================================================================
-     CONTACT
-     The closing gate: the form on the start side, the reason to send it on the
-     other, and the lit notch on the datum above.
+     CONTACT - the closing gate
+     The composition answers the hero: the form on the start side, an opening on
+     the end side, and the lit notch on the datum above them both.
      ========================================================================== */
-  .contact__grid {
+  .contact__gate {
+    position: relative;
+    min-block-size: clamp(280px, 30vw, 460px);
+  }
+
+  .contact__arch {
+    position: absolute;
+    inset-block: 0;
+    inset-inline: 0;
+    margin-inline: auto;
+    margin-block-start: auto;
+    inline-size: min(var(--arch-w), 100%);
+    max-block-size: calc(var(--arch-w) * 1.6);
+  }
+
+  .contact__points {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--sp-64);
-    padding-block-start: var(--sp-48);
+    gap: var(--sp-24);
+    margin-block-start: var(--sp-48);
+  }
+
+  .contact__point {
+    display: grid;
+    gap: var(--sp-8);
+    padding-block-start: var(--sp-16);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .contact__point-title {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .contact__point-body {
+    max-inline-size: 34ch;
+    color: var(--text-muted);
+    font-size: var(--step-0);
+    line-height: 1.6;
   }
 
   .form__fields {
     display: grid;
     gap: var(--sp-24);
+    margin-block-start: var(--sp-48);
   }
 
   .form__pair {
@@ -904,39 +1027,20 @@
     gap: var(--sp-24);
   }
 
-  .contact__aside {
-    display: grid;
-    align-content: start;
-    gap: var(--sp-24);
+  @media (max-width: 1023px) {
+    .contact__gate {
+      display: none;
+    }
+
+    .contact__points {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-block-start: var(--sp-32);
+    }
   }
 
-  .contact__points {
-    display: grid;
-    gap: var(--sp-16);
-  }
-
-  .contact__point {
-    display: grid;
-    gap: var(--sp-4);
-    padding-block-start: var(--sp-16);
-    border-block-start: 1px solid var(--border);
-  }
-
-  .contact__point-title {
-    font-size: var(--step-0);
-    font-weight: 600;
-  }
-
-  .contact__point-body {
-    color: var(--text-muted);
-    font-size: var(--step--1);
-    line-height: 1.6;
-  }
-
-  @media (max-width: 899px) {
-    .contact__grid {
+  @media (max-width: 719px) {
+    .contact__points {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-48);
     }
   }
 
@@ -950,25 +1054,25 @@
      FOOTER
      ========================================================================== */
   .footer {
-    padding-block: var(--sp-64) var(--sp-32);
+    padding-block: var(--sp-96) var(--sp-32);
     border-block-start: 1px solid var(--border);
   }
 
   .footer__grid {
     display: grid;
     grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 3fr));
-    gap: var(--sp-32);
+    gap: var(--sp-48) var(--col-gap);
   }
 
   .footer__brand {
     display: grid;
     align-content: start;
-    gap: var(--sp-16);
+    gap: var(--sp-24);
   }
 
   .footer__logo {
-    inline-size: 180px;
-    block-size: 64px;
+    inline-size: 200px;
+    block-size: 71px;
     object-fit: contain;
     object-position: right center;
   }
@@ -978,22 +1082,22 @@
   }
 
   .footer__about {
-    max-inline-size: 40ch;
+    max-inline-size: 38ch;
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     line-height: 1.7;
   }
 
   .footer__title {
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     font-weight: 600;
     color: var(--text);
   }
 
   .footer__list {
     display: grid;
-    gap: var(--sp-8);
-    padding-block-start: var(--sp-16);
+    gap: var(--sp-4);
+    margin-block-start: var(--sp-16);
   }
 
   .footer__link {
@@ -1001,7 +1105,7 @@
     align-items: center;
     min-block-size: var(--touch);
     color: var(--text-muted);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     transition: color var(--dur-ui) var(--ease);
   }
 
@@ -1017,7 +1121,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--sp-16);
-    margin-block-start: var(--sp-48);
+    margin-block-start: var(--sp-64);
     padding-block-start: var(--sp-24);
     border-block-start: 1px solid var(--border);
     color: var(--text-faint);
@@ -1027,7 +1131,6 @@
   @media (max-width: 899px) {
     .footer__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--sp-32);
     }
 
     .footer__brand {
@@ -1059,22 +1162,6 @@
     display: none;
   }
 
-  .flow__spark {
-    display: none;
-  }
-
-  .flow__gate::after,
-  .marquee__track {
-    animation: none;
-  }
-
-  /* Belt and braces: main.js does not arm the reveal under reduced motion, but
-     if the preference changes after load nothing may stay hidden. */
-  html.can-reveal [data-reveal] {
-    opacity: 1;
-    transform: none;
-  }
-
   .btn:active,
   .btn--primary:hover,
   .btn--ghost:hover,
@@ -1094,5 +1181,21 @@
 
   .menu.is-open .menu__item {
     animation: none;
+  }
+
+  .flow__spark {
+    display: none;
+  }
+
+  .flow__gate::after,
+  .marquee__track {
+    animation: none;
+  }
+
+  /* Belt and braces: main.js does not arm the reveal under reduced motion, but
+     if the preference changes after load nothing may stay hidden. */
+  html.can-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }
