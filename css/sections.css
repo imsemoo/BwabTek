@@ -108,6 +108,32 @@
     min-block-size: calc(var(--arch-w) * 1.4);
   }
 
+  /* ---------- The hero draws itself on load ----------
+     The headline, the sub and the buttons paint immediately: they decide LCP and
+     they are the promise, so they never wait behind an animation. What animates
+     is the opening being drawn, order by order, and the figures rising off the
+     ground line. */
+  html.can-reveal .hero .gateway__order {
+    opacity: 0;
+    transform: translateY(var(--sp-16));
+    transition:
+      opacity var(--dur-draw) var(--ease),
+      transform var(--dur-draw) var(--ease);
+  }
+
+  html.can-reveal .hero .gateway__order:nth-child(2) { transition-delay: 90ms; }
+  html.can-reveal .hero .gateway__order:nth-child(3) { transition-delay: 180ms; }
+
+  html.can-reveal .hero.is-drawn .gateway__order {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* the stream only starts once the opening it lives in has been drawn */
+  html.can-reveal .hero:not(.is-drawn) .gateway__token {
+    animation-play-state: paused;
+  }
+
   /* Roughly 1:1.7, a door proportion. Taller than this and the opening reads as
      an empty tube rather than something you could walk through. */
   .hero__arch {
@@ -236,6 +262,11 @@
 
     .hero__arch .gateway__order:nth-child(3) {
       background: linear-gradient(to bottom, var(--light), transparent 42%);
+    }
+
+    /* The opening sits behind the copy here, so nothing moves behind the words */
+    .hero__arch .gateway__stream {
+      display: none;
     }
 
     .hero__sub {
@@ -1188,14 +1219,26 @@
   }
 
   .flow__gate::after,
-  .marquee__track {
+  .marquee__track,
+  .gateway__token {
     animation: none;
+  }
+
+  .gateway__token {
+    opacity: .3;
+  }
+
+  html.can-reveal .hero .gateway__order {
+    opacity: 1;
+    transform: none;
   }
 
   /* Belt and braces: main.js does not arm the reveal under reduced motion, but
      if the preference changes after load nothing may stay hidden. */
-  html.can-reveal [data-reveal] {
+  html.can-reveal [data-reveal],
+  html.can-reveal [data-reveal-group] > * {
     opacity: 1;
+    translate: none;
     transform: none;
   }
 }

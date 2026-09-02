@@ -271,18 +271,32 @@
      The hidden state is applied only when js/main.js has confirmed it will run
      and motion is welcome. Without JavaScript, or under reduced motion, nothing
      is ever hidden, so the content is always present for readers and crawlers. */
-  html.can-reveal [data-reveal] {
+  /* The reveal moves `translate`, not `transform`, so it never fights a hover
+     lift that lives on transform. The delay travels as a custom property so a
+     component with its own transition list (.card) can pick it up per property. */
+  html.can-reveal [data-reveal],
+  html.can-reveal [data-reveal-group] > * {
+    --reveal-delay: 0s;
+
     opacity: 0;
-    transform: translateY(var(--sp-16));
+    translate: 0 var(--sp-12);
     transition:
       opacity var(--dur-in) var(--ease),
-      transform var(--dur-in) var(--ease);
-    transition-delay: calc(var(--reveal-i, 0) * var(--stagger));
+      translate var(--dur-in) var(--ease);
+    transition-delay: var(--reveal-delay);
   }
 
-  html.can-reveal [data-reveal].is-in {
+  /* The group is what the observer watches, so a grid always staggers in
+     reading order instead of each card starting its own clock as it happens to
+     cross the line. */
+  html.can-reveal [data-reveal-group] > * {
+    --reveal-delay: calc(var(--reveal-i, 0) * var(--stagger));
+  }
+
+  html.can-reveal [data-reveal].is-in,
+  html.can-reveal [data-reveal-group].is-in > * {
     opacity: 1;
-    transform: none;
+    translate: none;
   }
 
   /* Header scroll sentinel: when this leaves the viewport the header turns to glass */

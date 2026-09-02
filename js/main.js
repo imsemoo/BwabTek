@@ -6,7 +6,7 @@
 
    The accordion, the marquee and the automation flow are CSS only.
    ========================================================================== */
-import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=18';
+import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=23';
 
 i18nInit();
 
@@ -339,14 +339,15 @@ function armReveal() {
   if (reducedMotion.matches || !('IntersectionObserver' in window)) return;
 
   const groups = document.querySelectorAll('[data-reveal-group]');
-  const solo = document.querySelectorAll('[data-reveal]');
-  if (!groups.length && !solo.length) return;
+  const singles = document.querySelectorAll('[data-reveal]:not([data-reveal-group])');
+  if (!groups.length && !singles.length) return;
 
-  /* Index each child inside its group, capped at five, so a long grid never
-     ends with items crawling in seconds after the rest. */
+  /* A group is watched as a whole and its children stagger from it, capped at
+     five steps so a long grid never ends with stragglers. The group itself is
+     never a reveal target, or it would fade twice. */
   groups.forEach((group) => {
+    group.removeAttribute('data-reveal');
     Array.from(group.children).forEach((child, index) => {
-      child.setAttribute('data-reveal', '');
       child.style.setProperty('--reveal-i', String(Math.min(index, 4)));
     });
   });
@@ -364,10 +365,37 @@ function armReveal() {
     { rootMargin: '0px 0px -10% 0px', threshold: 0.01 }
   );
 
-  document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+  groups.forEach((group) => observer.observe(group));
+  singles.forEach((el) => observer.observe(el));
+
+  /* The hero draws itself once the first frame has painted: the opening comes
+     in order by order, and only then does its stream start. */
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => hero.classList.add('is-drawn'));
+    });
+  }
 }
 
 armReveal();
+
+/* ==========================================================================
+   IDLE GATES
+   A gate that is not on screen has no reason to run. Both openings pause
+   their streams while out of view; the WebGL floor already does the same.
+   ========================================================================== */
+if ('IntersectionObserver' in window) {
+  const gates = document.querySelectorAll('.hero, #contact');
+  if (gates.length) {
+    const idle = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-idle', !entry.isIntersecting);
+      });
+    });
+    gates.forEach((gate) => idle.observe(gate));
+  }
+}
 
 /* ==========================================================================
    HERO FLOOR GRID
@@ -394,7 +422,7 @@ function startHeroBackground() {
   const observer = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
-    import('./hero-grid.js?v=18')
+    import('./hero-grid.js?v=23')
       .then((module) => {
         heroGrid = module.initHeroGrid(host, {
           horizon: document.getElementById('heroBase'),

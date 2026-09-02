@@ -70,5 +70,10 @@ Read `css/tokens.css` first; it holds the whole system and the reasoning.
   gateway, the engineering floor, and one accent. Nothing else gets invented.
 - Logical CSS properties only. No `left`, `right`, `margin-left` anywhere.
 - Colours, spacing, radii, durations come from tokens. No raw values.
-- Only `transform` and `opacity` animate.
+- Only `transform`, `translate` and `opacity` animate. The scroll reveal uses
+  `translate` so it never fights a hover lift on `transform`; a component with
+  its own `transition` list that becomes a reveal child must merge `opacity` and
+  `translate` into it (see `.card`), or it loses the fade and the stagger.
+- The gate streams are decorative and gated: off below 900px in the hero, paused
+  off screen, frozen under reduced motion. The headline never waits on motion.
 - Arabic copy is Modern Standard, with no diacritics.

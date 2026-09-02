@@ -41,12 +41,12 @@
   <link rel="preload" href="../assets/fonts/inter-400-latin.woff2?v=1" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/fonts.css?v=1">
 
-  <link rel="stylesheet" href="../css/tokens.css?v=22">
-  <link rel="stylesheet" href="../css/base.css?v=22">
-  <link rel="stylesheet" href="../css/components.css?v=22">
-  <link rel="stylesheet" href="../css/sections.css?v=22">
+  <link rel="stylesheet" href="../css/tokens.css?v=24">
+  <link rel="stylesheet" href="../css/base.css?v=24">
+  <link rel="stylesheet" href="../css/components.css?v=24">
+  <link rel="stylesheet" href="../css/sections.css?v=24">
 
-  <script type="module" src="../js/main.js?v=18"></script>
+  <script type="module" src="../js/main.js?v=23"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
@@ -136,6 +136,19 @@
             <span class="gateway__order"></span>
             <span class="gateway__order"></span>
             <span class="gateway__order"></span>
+            <!-- The gate is running: output leaving the machine. Decorative,
+                 hidden from assistive tech, paused off screen and under
+                 reduced motion. -->
+            <span class="gateway__stream" aria-hidden="true">
+              <span class="gateway__token" style="--l: 18%; --x: -6px; --dur: 13s; --i: 0">{ }</span>
+              <span class="gateway__token" style="--l: 62%; --x: 8px; --dur: 15s; --i: 1">=&gt;</span>
+              <span class="gateway__token" style="--l: 40%; --x: -4px; --dur: 12s; --i: 2">200 OK</span>
+              <span class="gateway__token" style="--l: 74%; --x: 6px; --dur: 16s; --i: 3">&lt;/&gt;</span>
+              <span class="gateway__token" style="--l: 28%; --x: 10px; --dur: 14s; --i: 4">POST</span>
+              <span class="gateway__token" style="--l: 54%; --x: -8px; --dur: 13s; --i: 5">[ ]</span>
+              <span class="gateway__token" style="--l: 10%; --x: 4px; --dur: 17s; --i: 6">id: 4021</span>
+              <span class="gateway__token" style="--l: 68%; --x: -5px; --dur: 15s; --i: 7">::</span>
+            </span>
           </div>
         </div>
       </div>
@@ -145,7 +158,7 @@
           <div class="datum datum--lit">
             <!-- PLACEHOLDER: the three figures below come from the brief, not from an audited
                  source. Confirm them with Bawabtak before launch or replace them. -->
-            <ul class="trust" aria-label="Bawabtak in numbers" data-i18n-attr="aria-label:hero.trustLabel">
+            <ul class="trust" data-reveal-group aria-label="Bawabtak in numbers" data-i18n-attr="aria-label:hero.trustLabel">
               <li class="trust__item">
                 <span class="trust__num">40+</span>
                 <span class="trust__label" data-i18n="hero.trust1">projects delivered</span>
@@ -775,10 +788,19 @@
               <!-- The gateway comes back at the end of the page: the same three
                    recessed orders as the hero, so the visit closes where it began. -->
               <div class="contact__gate" aria-hidden="true">
-                <div class="gateway contact__arch">
+                <div class="gateway gateway--receive contact__arch">
                   <span class="gateway__order"></span>
                   <span class="gateway__order"></span>
                   <span class="gateway__order"></span>
+                  <!-- The closing gate takes work in -->
+                  <span class="gateway__stream" aria-hidden="true">
+                    <span class="gateway__token" style="--l: 22%; --x: 6px; --dur: 14s; --i: 0">{ }</span>
+                    <span class="gateway__token" style="--l: 58%; --x: -6px; --dur: 16s; --i: 1">=&gt;</span>
+                    <span class="gateway__token" style="--l: 36%; --x: 4px; --dur: 13s; --i: 2">&lt;/&gt;</span>
+                    <span class="gateway__token" style="--l: 72%; --x: -8px; --dur: 15s; --i: 3">[ ]</span>
+                    <span class="gateway__token" style="--l: 14%; --x: 8px; --dur: 17s; --i: 4">::</span>
+                    <span class="gateway__token" style="--l: 50%; --x: -4px; --dur: 14s; --i: 5">fn</span>
+                  </span>
                 </div>
               </div>
 

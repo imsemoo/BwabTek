@@ -179,6 +179,83 @@
     background: linear-gradient(to bottom, var(--light), var(--plane) 30%, transparent 54%);
   }
 
+  /* ---------- The gate is running ----------
+     Fragments of code descend inside the opening and dissolve at the threshold,
+     so the opening reads as something work passes through rather than as a shape
+     drawn on the page. Neutral, slow, and few: this is output leaving a machine,
+     not rain in a film.
+
+     The stream is as tall as the opening, so a token translating by 100% of its
+     own height travels exactly from the crown to the ground. */
+  .gateway__stream {
+    position: absolute;
+    inset-block: 14% 0;
+    inset-inline: 16%;
+    overflow: hidden;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 66%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 66%, transparent);
+  }
+
+  .gateway__token {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: var(--l, 50%);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1;
+    color: var(--text-faint);
+    white-space: nowrap;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: token-out var(--dur, 13s) linear infinite;
+    animation-delay: calc(var(--i, 0) * -1.6s);
+  }
+
+  @keyframes token-out {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0);
+    }
+    14% {
+      opacity: .5;
+    }
+    76% {
+      opacity: .3;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(calc(var(--dir) * var(--x, 0px)), 100%, 0);
+    }
+  }
+
+  /* The closing gate takes work in rather than putting it out */
+  .gateway--receive .gateway__token {
+    animation-name: token-in;
+  }
+
+  @keyframes token-in {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+    18% {
+      opacity: .42;
+    }
+    78% {
+      opacity: .26;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(calc(var(--dir) * var(--x, 0px)), 0, 0);
+    }
+  }
+
+  /* Nothing runs while the gate is off screen */
+  .is-idle .gateway__token {
+    animation-play-state: paused;
+  }
+
   /* 1px ring, lit at the crown, fading to nothing at the ground */
   .gateway__order::before {
     content: "";
@@ -551,10 +628,16 @@
     border: 1px solid var(--border);
     border-radius: var(--r-lg);
     background: var(--surface);
+    /* Hover lives on transform at UI speed; the scroll reveal lives on opacity
+       and translate at reveal speed with its own stagger delay. One list, two
+       jobs, and neither resets the other. */
     transition:
       transform var(--dur-ui) var(--ease),
       border-color var(--dur-ui) var(--ease),
-      background-color var(--dur-ui) var(--ease);
+      background-color var(--dur-ui) var(--ease),
+      opacity var(--dur-in) var(--ease),
+      translate var(--dur-in) var(--ease);
+    transition-delay: 0s, 0s, 0s, var(--reveal-delay, 0s), var(--reveal-delay, 0s);
   }
 
   /* The gateway edge: the same light that falls across the opening */
