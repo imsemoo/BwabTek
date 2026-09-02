@@ -163,7 +163,8 @@ function translate(html, lang) {
 }
 
 /* --------------------------------------------------------------------- run */
-const source = readFileSync(resolve(ROOT, 'index.html'), 'utf8');
+/* Read as LF whatever the checkout did, so the head rewrites below match. */
+const source = readFileSync(resolve(ROOT, 'index.html'), 'utf8').replace(/\r\n/g, '\n');
 
 if (!source.includes(MARK_OPEN)) {
   throw new Error(`index.html is missing the ${MARK_OPEN} / ${MARK_CLOSE} pair in <head>`);
@@ -203,5 +204,5 @@ mkdirSync(resolve(ROOT, 'en'), { recursive: true });
 writeFileSync(resolve(ROOT, 'en/index.html'), english);
 
 console.log(`site      ${SITE}`);
-console.log(`index.html  head refreshed  ${arabic.length.toLocaleString()} bytes`);
-console.log(`en/index.html generated     ${english.length.toLocaleString()} bytes`);
+console.log(`index.html  head refreshed  ${arabic.length} bytes`);
+console.log(`en/index.html generated     ${english.length} bytes`);

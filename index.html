@@ -8,11 +8,23 @@
   <meta name="theme-color" content="#07080B">
   <meta name="color-scheme" content="dark">
 
-  <!-- PHASE 3: canonical + hreflang (ar / en / x-default) once the domain is confirmed,
-       JSON-LD (Organization, ProfessionalService, FAQPage, BreadcrumbList),
-       and the 1200x630 OG images assets/og-ar.png and assets/og-en.png. -->
+  <!-- Everything between the SEO markers is written by build/i18n-build.mjs.
+       Edit the script, not this block. -->
+  <!-- SEO:START -->
+  <link rel="canonical" href="https://bawabtak.example/">
+  <link rel="alternate" hreflang="ar" href="https://bawabtak.example/">
+  <link rel="alternate" hreflang="en" href="https://bawabtak.example/en/">
+  <link rel="alternate" hreflang="x-default" href="https://bawabtak.example/">
+  <meta property="og:url" content="https://bawabtak.example/">
+  <meta property="og:image" content="https://bawabtak.example/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="بوابتك">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://bawabtak.example/#organization","name":"بوابتك","alternateName":"Bawabtak","url":"https://bawabtak.example/","logo":"https://bawabtak.example/assets/logo-full.webp","description":"شركة برمجيات تبني الأنظمة والتطبيقات وعمليات الأتمتة التي ترفع العمل اليدوي عن الفرق."},{"@type":"ProfessionalService","@id":"https://bawabtak.example/#service","name":"بوابتك","url":"https://bawabtak.example/","image":"https://bawabtak.example/assets/og.png","description":"بوابتك شركة برمجيات تبني تطبيقات الويب والهواتف، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. نسلم أنظمة تعمل، لا عروضا تقديمية. احجز استشارة مجانية مدتها 20 دقيقة.","parentOrganization":{"@id":"https://bawabtak.example/#organization"},"areaServed":"Worldwide","availableLanguage":["ar","en"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"ما نبنيه","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"الأتمتة وربط الأنظمة","description":"نربط أنظمتك الحالية ببعضها ونزيل الخطوات اليدوية، من الطلب إلى الفاتورة دون تدخل."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"تطبيقات ويب مخصصة","description":"نظام مبني على طريقة عملك أنت، لا قالب جاهز غيرت ألوانه."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"وكلاء ذكاء اصطناعي وروبوتات محادثة","description":"مرتبطة ببياناتك، تجيب بدقة، وتحول المحادثة إلى موظف عند الحاجة."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"تطبيقات الهواتف","description":"iOS وأندرويد من قاعدة كود واحدة، بأداء أصلي."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"المتاجر الإلكترونية","description":"متجر سريع يبيع فعلا. الدفع والشحن والمخزون مرتبطة ببعضها."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"الصيانة والتطوير المستمر","description":"فريق ثابت يطور ويصلح شهريا بدلا من البحث عن فريق في كل مرة."}}]}},{"@type":"FAQPage","@id":"https://bawabtak.example/#faq","mainEntity":[{"@type":"Question","name":"كم يستغرق العمل؟","acceptedAnswer":{"@type":"Answer","text":"الموقع التعريفي من أسبوعين إلى ثلاثة. النظام أو التطبيق المخصص ستة أسابيع في المتوسط. تتحدد المدة وتكتب في العرض بعد جلسة النطاق، ولا تتغير بعدها إلا إذا غيرت النطاق."}},{"@type":"Question","name":"هل تعملون بعقد؟","acceptedAnswer":{"@type":"Answer","text":"نعم. عقد مكتوب يحدد النطاق والتسليمات والمدة والدفعات وحقوق الملكية. لا يبدأ أي عمل دون عقد."}},{"@type":"Question","name":"هل الكود ملكي؟","acceptedAnswer":{"@type":"Answer","text":"ملكك بالكامل من يوم التسليم. نسلمك المستودع والتوثيق وبيانات الاستضافة. وإذا قررت المتابعة مع فريق آخر، لا شيء يعوقك."}},{"@type":"Question","name":"هل تدعمون بعد الإطلاق؟","acceptedAnswer":{"@type":"Answer","text":"ثلاثة أشهر دعم مشمولة في باقة النمو، تغطي إصلاح الأعطال والتعديلات الصغيرة. بعدها هناك باقة صيانة شهرية اختيارية."}},{"@type":"Question","name":"هل تعملون مع فريق تقني قائم لدي؟","acceptedAnswer":{"@type":"Answer","text":"نعم. نعمل إلى جانب فريقك في المستودع نفسه، بمراجعة كود ومعايير متفق عليها، أو نأخذ جزءا محددا ونسلمه جاهزا للدمج."}},{"@type":"Question","name":"كيف تتم الدفعات؟","acceptedAnswer":{"@type":"Answer","text":"دفعات مرتبطة بالتسليمات لا بالوقت. الدفعة الأولى عند بدء العمل والباقي عند كل تسليم متفق عليه. التفاصيل تكتب في العرض."}}]},{"@type":"BreadcrumbList","@id":"https://bawabtak.example/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"بوابتك","item":"https://bawabtak.example/"}]}]}</script>
+<!-- SEO:END -->
+
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="بوابتك">
+  <meta property="og:site_name" data-i18n-attr="content:brand.name" content="بوابتك">
   <meta property="og:title" data-i18n-attr="content:meta.title" content="بوابتك | برمجيات وأتمتة تدير أعمالك من دونك">
   <meta property="og:description" data-i18n-attr="content:meta.description" content="بوابتك شركة برمجيات تبني تطبيقات الويب والهواتف، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. نسلم أنظمة تعمل، لا عروضا تقديمية. احجز استشارة مجانية مدتها 20 دقيقة.">
   <meta property="og:locale" content="ar_EG">

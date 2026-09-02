@@ -12,21 +12,21 @@
     /* ---------- Colour ----------
        Contrast ratios are measured (WCAG 2.x relative luminance), not guessed. */
     --bg:            #07080B;
-    --surface:       #0D0F14;
-    --surface-2:     #12151C;
+    --surface-sunken:#090B10;   /* a whole section set back from the page */
+    --surface:       #0E1117;   /* cards */
+    --surface-2:     #151922;   /* raised cards and hover */
     --border:        rgba(255, 255, 255, .08);
     --border-strong: rgba(255, 255, 255, .14);
 
-    --text:          #F4F6F8;   /* on --bg 18.49:1 · on --surface 17.69:1 */
-    --text-muted:    #9AA3B2;   /* on --bg 7.87:1 · on --surface 7.54:1 · on --surface-2 7.18:1 */
-    --text-faint:    #78818E;   /* brief value #6B7480 measures 4.23:1 on --bg and fails 4.5:1.
-                                   Adjusted: on --bg 5.08:1 · on --surface 4.86:1 · on --surface-2 4.64:1 */
+    --text:          #F4F6F8;   /* on --bg 18.49:1 · on --surface 17.2:1 */
+    --text-muted:    #9AA3B2;   /* on --bg 7.87:1 · on --surface 7.32:1 */
+    --text-faint:    #78818E;   /* on --bg 5.08:1 · on --surface 4.72:1 */
 
-    --brand:         #2E6BFF;   /* fill only. --on-brand (#FFFFFF) on it 4.50:1.
-                                   As text on --bg it is 4.45:1 and fails, so text uses --brand-hi */
-    --brand-hi:      #5E8CFF;   /* text/border on --bg 6.36:1. Never a fill under white text (3.15:1) */
+    --brand:         #2E6BFF;   /* fill only. --on-brand (#FFFFFF) on it 4.50:1 */
+    --brand-hi:      #5E8CFF;   /* text and borders on dark: 6.36:1 on --bg */
     --on-brand:      #FFFFFF;
-    --accent:        #35E0C2;   /* on --bg 12.01:1. Numbers, status, one underline. Never a filled button */
+    --brand-wash:    rgba(46, 107, 255, .05);  /* the one tinted surface: the featured plan */
+    --accent:        #35E0C2;   /* on --bg 12.01:1. Only the two gate lights */
     --warn:          #FFB020;   /* on --bg 10.95:1 */
 
     --brand-rgb:     46 107 255;
@@ -40,19 +40,20 @@
     --active-bg:     rgba(255, 255, 255, .10);
 
     /* ---------- Gateway grammar ----------
-       The brand device is a drawn architectural opening, not a glow:
-         line       1px hairlines: the arch, the inner jamb, the datum (ground) line, ticks
-         light      one light source, always "beyond" the opening, falling from its top edge
-         grid       engineering paper under the opening, minor + major lines, neutral, converging into the gate
-         key        one 4px accent square at the threshold (the only accent in the hero)
-       Reuse these in later sections: separators (datum), cards (arch top edge + light), diagrams (grid). */
+       The brand device is a drawn architectural opening, never a glow:
+         line       1px hairlines: arches, jambs, datum lines, ticks, frames
+         light      one source, always beyond the opening, falling from its top
+         grid       engineering paper under the opening, converging into it
+         key        one 4px accent square at a threshold
+       These recur as arches, frames, thresholds and datum lines. The point is
+       the language, not one shape stamped onto every section. */
     --line:          rgba(255, 255, 255, .12);
     --line-strong:   rgba(255, 255, 255, .24);
     --light:         rgba(190, 206, 255, .14);
     --grid-minor:    rgba(214, 222, 236, .075);
     --grid-major:    rgba(214, 222, 236, .17);
 
-    /* Recessed orders of the opening: three concentric arches, each ring lit at
+    /* Recessed orders of an opening: three concentric arches, each ring lit at
        the crown and fading to the ground. The near ring is brightest, so the
        light reads as coming from beyond the gate. */
     --edge-far:      rgba(255, 255, 255, .10);
@@ -62,16 +63,19 @@
 
     --arch-w:        clamp(232px, 26vw, 376px);
 
-    /* ---------- Type ---------- */
+    /* ---------- Type ----------
+       Five roles, and the gaps between them are what let the page be scanned
+       from a distance: display, section title, subheading, body, metadata. */
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-    --step--1: clamp(.82rem, .78rem + .2vw, .9rem);
-    --step-0:  clamp(1rem, .95rem + .25vw, 1.125rem);
-    --step-1:  clamp(1.25rem, 1.15rem + .5vw, 1.5rem);
-    --step-2:  clamp(1.6rem, 1.4rem + 1vw, 2.1rem);
-    --step-3:  clamp(2.1rem, 1.7rem + 2vw, 3rem);
-    --step-4:  clamp(2.4rem, 1.8rem + 2.8vw, 3.75rem); /* hero only. Brief had 2.8/4.5rem; tightened so the
-                                                         headline holds 2-3 lines beside the gateway */
+    --step--1:   clamp(.82rem, .78rem + .2vw, .9rem);       /* metadata */
+    --step-0:    clamp(1rem, .95rem + .25vw, 1.125rem);     /* body */
+    --step-lead: clamp(1.125rem, 1.02rem + .5vw, 1.375rem); /* section lead-in */
+    --step-1:    clamp(1.375rem, 1.24rem + .6vw, 1.75rem);  /* subheading, card title */
+    --step-2:    clamp(1.75rem, 1.48rem + 1.15vw, 2.5rem);  /* large card, quote, metric */
+    --step-3:    clamp(2.4rem, 1.9rem + 2.2vw, 3.75rem);    /* section title */
+    --step-4:    clamp(2.4rem, 1.8rem + 2.8vw, 3.75rem);    /* hero */
+    --step-5:    clamp(3rem, 2rem + 4.4vw, 5.25rem);        /* the proof numbers */
 
     /* ---------- Space (4px scale) ---------- */
     --sp-4:   4px;
@@ -85,9 +89,15 @@
     --sp-96:  96px;
     --sp-128: 128px;
 
-    --section-y: clamp(72px, 9vw, 144px);
-    --container: 1200px;
-    --gutter:    clamp(20px, 5vw, 40px);
+    /* Three densities, so the page reads as a narrative rather than as one
+       template repeated a dozen times. */
+    --section-tight: clamp(48px, 5vw, 88px);
+    --section-y:     clamp(72px, 8vw, 128px);
+    --section-loose: clamp(96px, 11vw, 176px);
+
+    --container: 1440px;
+    --gutter:    clamp(20px, 4vw, 64px);
+    --col-gap:   clamp(16px, 2vw, 32px);
     --header-h:  64px;
     --touch:     44px;
 

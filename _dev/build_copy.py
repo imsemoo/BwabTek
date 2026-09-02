@@ -512,7 +512,8 @@ p = "js/i18n.js"
 src = io.open(p, encoding="utf-8").read()
 start = src.index("export const dict = {")
 end = src.index("\nconst root = document.documentElement;")
-io.open(p, "w", encoding="utf-8").write(src[:start] + block + "\n" + src[end:])
+io.open(p, "w", encoding="utf-8", newline="
+").write(src[:start] + block + "\n" + src[end:])
 print(f"js/i18n.js: {len(AR_FLAT)} keys per language")
 
 # ------------------------------------------- refresh the html fallback text
@@ -565,5 +566,6 @@ html = re.sub(r"<[a-zA-Z0-9]+[^>]*\sdata-i18n-attr=\"[^\"]+\"[^>]*>", swap_attrs
 if missing:
     raise SystemExit("keys used in markup but absent from the dictionary: " + ", ".join(sorted(set(missing))))
 
-io.open(p, "w", encoding="utf-8").write(html)
+io.open(p, "w", encoding="utf-8", newline="
+").write(html)
 print(f"index.html: {n_text} text nodes, {n_attr} attributes refreshed")
