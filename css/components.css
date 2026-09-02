@@ -187,7 +187,7 @@
      from 0 (blank) to 5 (all done); everything visual is a transition. */
   .gateway__log {
     position: absolute;
-    inset-block-start: 36%;
+    inset-block-start: 42%;
     inset-inline: 20%;
     display: grid;
     gap: var(--sp-12);
@@ -204,18 +204,23 @@
     translate: none;
   }
 
+  /* the id keeps the page's alignment; only the glyph order inside is forced
+     LTR, or Arabic bidi puts the # after the number */
   .gateway__log-id {
     font-family: var(--font-mono);
     font-size: var(--step--1);
     line-height: 1;
     color: var(--text-faint);
     letter-spacing: .04em;
-    direction: ltr;
-    unicode-bidi: isolate;
-    justify-self: start;
+    text-align: start;
     padding-block-end: var(--sp-12);
     border-block-end: 1px solid var(--line);
-    inline-size: 100%;
+  }
+
+  .gateway__log-num {
+    display: inline-block;
+    direction: ltr;
+    unicode-bidi: isolate;
   }
 
   .gateway__log-rows {
