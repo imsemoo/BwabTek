@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo size check</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700&family=Inter:wght@400;600;700&display=swap">
+<style>
+  body { margin: 0; background: #07080B; color: #F4F6F8; font-family: Alexandria, system-ui; padding: 24px; }
+  .row { display: flex; align-items: center; gap: 20px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; margin-block-end: 8px; }
+  .tag { font: 600 11px/1 Inter, system-ui; color: #35E0C2; min-width: 92px; direction: ltr; text-align: left; }
+  .lock { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; line-height: 1; white-space: nowrap; }
+  img { display: block; }
+  .bar { background: rgba(7,8,11,.72); border-block-end: 1px solid rgba(255,255,255,.08); padding: 0 20px; height: 64px; display: flex; align-items: center; justify-content: space-between; margin-block: 20px; border-radius: 10px; }
+  .nav { display: flex; gap: 14px; font-size: 14px; color: #9AA3B2; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="row"><span class="tag">mark 24</span><img src="../assets/logo-mark.webp" height="24" alt=""></div>
+<div class="row"><span class="tag">mark 28</span><img src="../assets/logo-mark.webp" height="28" alt=""></div>
+<div class="row"><span class="tag">mark 32</span><img src="../assets/logo-mark.webp" height="32" alt=""></div>
+<div class="row"><span class="tag">mark 40</span><img src="../assets/logo-mark.webp" height="40" alt=""></div>
+<div class="row"><span class="tag">mark 56</span><img src="../assets/logo-mark.webp" height="56" alt=""></div>
+
+<div class="row"><span class="tag">mark+text 28</span><span class="lock" style="font-size:18px"><img src="../assets/logo-mark.webp" height="28" alt="">بوابتك</span></div>
+<div class="row"><span class="tag">mark+text 32</span><span class="lock" style="font-size:20px"><img src="../assets/logo-mark.webp" height="32" alt="">بوابتك</span></div>
+<div class="row"><span class="tag">mark+EN 32</span><span class="lock" style="font-size:20px;font-family:Inter;direction:ltr"><img src="../assets/logo-mark.webp" height="32" alt="">Bawabtak</span></div>
+
+<div class="row"><span class="tag">lockup 24</span><img src="../assets/logo-lockup.webp" height="24" alt=""></div>
+<div class="row"><span class="tag">lockup 28</span><img src="../assets/logo-lockup.webp" height="28" alt=""></div>
+<div class="row"><span class="tag">lockup 32</span><img src="../assets/logo-lockup.webp" height="32" alt=""></div>
+<div class="row"><span class="tag">lockup 40</span><img src="../assets/logo-lockup.webp" height="40" alt=""></div>
+<div class="row"><span class="tag">full 48</span><img src="../assets/logo-full.webp" height="48" alt=""></div>
+<div class="row"><span class="tag">full 72</span><img src="../assets/logo-full.webp" height="72" alt=""></div>
+
+<div class="bar">
+  <span class="lock" style="font-size:18px"><img src="../assets/logo-mark.webp" height="28" alt="">بوابتك</span>
+  <span class="nav">الخدمات · إزاي بنشتغل · أعمالنا · الأسعار · أسئلة</span>
+  <span class="nav">ع | EN</span>
+</div>
+
+<div class="bar">
+  <img src="../assets/logo-lockup.webp" height="30" alt="">
+  <span class="nav">الخدمات · إزاي بنشتغل · أعمالنا · الأسعار · أسئلة</span>
+  <span class="nav">ع | EN</span>
+</div>
+
+</body>
+</html>

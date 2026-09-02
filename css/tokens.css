@@ -49,9 +49,18 @@
     --line:          rgba(255, 255, 255, .12);
     --line-strong:   rgba(255, 255, 255, .24);
     --light:         rgba(190, 206, 255, .14);
-    --grid-minor:    rgba(214, 222, 236, .06);
-    --grid-major:    rgba(214, 222, 236, .13);
-    --arch-w:        clamp(220px, 23vw, 320px);
+    --grid-minor:    rgba(214, 222, 236, .075);
+    --grid-major:    rgba(214, 222, 236, .17);
+
+    /* Recessed orders of the opening: three concentric arches, each ring lit at
+       the crown and fading to the ground. The near ring is brightest, so the
+       light reads as coming from beyond the gate. */
+    --edge-far:      rgba(255, 255, 255, .10);
+    --edge-mid:      rgba(255, 255, 255, .17);
+    --edge-near:     rgba(255, 255, 255, .28);
+    --plane:         rgba(255, 255, 255, .016);  /* soffit fill between two orders */
+
+    --arch-w:        clamp(232px, 26vw, 376px);
 
     /* ---------- Type ---------- */
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;

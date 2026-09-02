@@ -19,7 +19,7 @@
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png?v=1" type="image/png" sizes="128x128">
 
   <!-- Language bootstrap: apply the stored choice to <html> before first paint.
        The body stays hidden only until js/i18n.js swaps the strings (or 800ms). -->
@@ -44,12 +44,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
-  <link rel="stylesheet" href="css/tokens.css?v=6">
-  <link rel="stylesheet" href="css/base.css?v=6">
-  <link rel="stylesheet" href="css/components.css?v=6">
-  <link rel="stylesheet" href="css/sections.css?v=6">
+  <link rel="stylesheet" href="css/tokens.css?v=12">
+  <link rel="stylesheet" href="css/base.css?v=12">
+  <link rel="stylesheet" href="css/components.css?v=12">
+  <link rel="stylesheet" href="css/sections.css?v=12">
 
-  <script type="module" src="js/main.js?v=5"></script>
+  <script type="module" src="js/main.js?v=7"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="a11y.skip">تخطَّ إلى المحتوى</a>
@@ -57,12 +57,12 @@
 
   <header class="header" id="header">
     <div class="container header__inner">
+      <!-- The brand mark is the supplied artwork, keyed off its dark ground.
+           The wordmark stays live text so it switches with the language; the
+           full Arabic lockup (assets/logo-lockup.webp) is for the footer and
+           the OG images, where it has room to be read. -->
       <a class="logo" href="#top" aria-label="بوابتك" data-i18n-attr="aria-label:brand.name">
-        <svg class="logo__mark" viewBox="0 0 22 28" fill="none" aria-hidden="true" focusable="false">
-          <path d="M1.5 27.5V11a9.5 9.5 0 0 1 19 0v16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M6 27.5V12a5 5 0 0 1 10 0v15.5Z" fill="#2E6BFF"/>
-          <path d="M0 27.25h22" stroke="currentColor" stroke-opacity=".4" stroke-width="1.5"/>
-        </svg>
+        <img class="logo__mark" src="assets/logo-mark.webp?v=1" width="46" height="36" alt="" decoding="async" fetchpriority="high">
         <span class="logo__word" data-i18n="brand.name">بوابتك</span>
       </a>
 
@@ -129,10 +129,13 @@
         </div>
 
         <div class="hero__visual" aria-hidden="true">
-          <div class="arch hero__arch" id="heroArch">
-            <span class="hero__tick hero__tick--start"></span>
-            <span class="hero__tick hero__tick--end"></span>
-            <span class="hero__key"></span>
+          <!-- Three recessed orders: the wall is cut through in three steps, each
+               ring lit at its crown, so the opening reads as depth rather than as
+               a ring drawn on the page. -->
+          <div class="gateway hero__arch" id="heroArch">
+            <span class="gateway__order"></span>
+            <span class="gateway__order"></span>
+            <span class="gateway__order"></span>
           </div>
         </div>
       </div>

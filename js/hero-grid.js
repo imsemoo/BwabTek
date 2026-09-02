@@ -29,8 +29,8 @@ const float X_SCALE = 3.2;
 const float Z_SCALE = 2.2;
 const float DRIFT = 0.12;
 const float LINE_PX = 1.25;
-const float MINOR = 0.09;
-const float MAJOR = 0.22;
+const float MINOR = 0.13;
+const float MAJOR = 0.30;
 
 float line(float v, float halfWidth) {
   float d = abs(fract(v + 0.5) - 0.5);
@@ -60,9 +60,11 @@ void main() {
   float alpha = max(minor * MINOR, major * MAJOR);
 
   /* fade where lines would alias near the datum, and quieten the far side so the copy stays clean */
+  float offAxis = abs(uv.x - u_vanish) * aspect;
   float fade = smoothstep(0.0, 0.12, below);
-  float side = 1.0 - 0.55 * smoothstep(0.18, 0.62, abs(uv.x - u_vanish) * aspect);
-  alpha *= fade * side;
+  float side = 1.0 - 0.55 * smoothstep(0.18, 0.62, offAxis);
+  float focus = 1.0 - smoothstep(0.0, 0.30, offAxis);
+  alpha *= fade * side * (1.0 + 0.55 * focus);
 
   gl_FragColor = vec4(u_color * alpha, alpha);
 }

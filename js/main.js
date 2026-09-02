@@ -3,7 +3,7 @@
    Header state, active nav link, mobile menu, language toggle, lazy hero
    floor grid. No scroll listeners: IntersectionObserver drives everything.
    ========================================================================== */
-import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=5';
+import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=7';
 
 i18nInit();
 
@@ -181,7 +181,7 @@ function startHeroBackground() {
   const observer = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
-    import('./hero-grid.js?v=5')
+    import('./hero-grid.js?v=7')
       .then((module) => {
         heroGrid = module.initHeroGrid(host, {
           horizon: document.getElementById('heroBase'),

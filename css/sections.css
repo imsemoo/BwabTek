@@ -16,15 +16,16 @@
     padding-block-start: calc(var(--header-h) + var(--sp-32));
   }
 
-  /* WebGL floor grid lives here; it draws only below the datum line and
-     fades out toward the bottom edge of the hero. */
+  /* WebGL floor grid lives here. It draws only below the datum line, so the
+     mask may only soften the last sliver of the hero. Fading it any higher
+     erases the floor itself. */
   .hero__bg {
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
   }
 
   .hero__canvas {
@@ -50,23 +51,33 @@
     column-gap: var(--sp-48);
   }
 
+  /* Copy stands on the datum, like the gateway. The air in the composition sits
+     above the headline, not between the buttons and the ground line. */
   .hero__copy {
-    align-self: center;
-    padding-block: var(--sp-32) var(--sp-64);
+    align-self: end;
+    padding-block-end: var(--sp-48);
   }
 
+  /* Weight 600 rather than 700: at display size Alexandria at 700 competes with
+     the gateway. Measure capped near 20ch so the headline reads as a block. */
   .hero__title {
-    max-inline-size: 22ch;
+    max-inline-size: 20ch;
+    font-weight: 600;
+    line-height: 1.2;
   }
 
+  /* Inter sets a shorter em than Alexandria, so the same ch count would break
+     the English headline into four lines. 24ch holds it at three. */
   html[lang="en"] .hero__title {
+    max-inline-size: 24ch;
     font-size: var(--step-3);
+    line-height: 1.06;
     letter-spacing: -0.02em;
   }
 
   .hero__sub {
     margin-block-start: var(--sp-24);
-    max-inline-size: 42ch;
+    max-inline-size: 40ch;
     color: var(--text-muted);
     font-size: var(--step-0);
     line-height: var(--lh-body);
@@ -87,6 +98,8 @@
     min-block-size: calc(var(--arch-w) * 1.4);
   }
 
+  /* Roughly 1:1.7, a door proportion. Taller than this and the opening reads as
+     an empty tube rather than something you could walk through. */
   .hero__arch {
     position: absolute;
     inset-block: 0;
@@ -94,35 +107,7 @@
     margin-inline: auto;
     margin-block-start: auto;
     inline-size: var(--arch-w);
-    max-block-size: calc(var(--arch-w) * 2.2);
-  }
-
-  /* Springing-line ticks: where the arc meets the jambs, like a drawing */
-  .hero__tick {
-    position: absolute;
-    inset-block-start: calc(var(--arch-w) / 2);
-    inline-size: var(--sp-8);
-    block-size: 1px;
-    background: var(--line-strong);
-  }
-
-  .hero__tick--start {
-    inset-inline-start: calc((var(--sp-12) + var(--sp-4)) * -1);
-  }
-
-  .hero__tick--end {
-    inset-inline-end: calc((var(--sp-12) + var(--sp-4)) * -1);
-  }
-
-  /* The threshold key: the one accent mark in the hero */
-  .hero__key {
-    position: absolute;
-    inset-block-end: calc(var(--sp-4) / -2);
-    inset-inline: 0;
-    margin-inline: auto;
-    inline-size: var(--sp-4);
-    block-size: var(--sp-4);
-    background: var(--accent);
+    max-block-size: calc(var(--arch-w) * 1.7);
   }
 
   /* ---------- Floor: datum line + trust layer ---------- */
@@ -163,24 +148,28 @@
     display: grid;
     grid-template-columns: repeat(3, auto);
     justify-content: start;
-    column-gap: var(--sp-48);
-    padding-block-start: var(--sp-24);
+    column-gap: var(--sp-64);
   }
 
+  /* Each figure hangs from the datum on its own leader, the way a dimension is
+     called out on a drawing. That is what ties the numbers to the architecture
+     instead of leaving them as a statistics row parked under the line. */
   .trust__item {
     position: relative;
     display: grid;
     gap: var(--sp-8);
     align-content: start;
+    padding-block-start: var(--sp-24);
   }
 
-  .trust__item + .trust__item::before {
+  .trust__item::before {
     content: "";
     position: absolute;
-    inset-inline-start: calc(var(--sp-24) * -1);
-    inset-block: var(--sp-4);
+    inset-block-start: 0;
+    inset-inline-start: 0;
     inline-size: 1px;
-    background: var(--line);
+    block-size: var(--sp-12);
+    background: var(--line-strong);
   }
 
   .trust__num {
@@ -204,6 +193,8 @@
      copy and runs off the end edge (partially visible) ---------- */
   @media (max-width: 899px) {
     .hero {
+      --arch-w: clamp(240px, 46vw, 420px);
+
       padding-block-start: calc(var(--header-h) + var(--sp-16));
     }
 
@@ -226,7 +217,17 @@
       inset-inline-start: auto;
       inset-inline-end: 0;
       margin-inline: 0;
-      max-block-size: calc(var(--arch-w) * 2.4);
+      max-block-size: calc(var(--arch-w) * 2.6);
+    }
+
+    /* Behind the copy the opening is drawn, not filled: the soffit planes come
+       off so the headline never sits on a soft grey mass. */
+    .hero__arch .gateway__order {
+      background: none;
+    }
+
+    .hero__arch .gateway__order:nth-child(3) {
+      background: linear-gradient(to bottom, var(--light), transparent 42%);
     }
 
     .hero__sub {
@@ -246,6 +247,7 @@
     }
 
     html[lang="en"] .hero__title {
+      max-inline-size: none;
       font-size: var(--step-2);
     }
   }
@@ -256,11 +258,7 @@
     }
 
     .trust {
-      column-gap: var(--sp-24);
-    }
-
-    .trust__item + .trust__item::before {
-      inset-inline-start: calc(var(--sp-12) * -1);
+      column-gap: var(--sp-32);
     }
   }
 }

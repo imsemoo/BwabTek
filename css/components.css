@@ -94,55 +94,97 @@
     }
   }
 
-  /* ---------- Gateway grammar: drawing primitives ----------
-     .datum  a ground/dimension line with a tick at each end
-     .arch   an opening: outer hairline, inner jamb line, light falling from the top */
+  /* ==========================================================================
+     GATEWAY GRAMMAR
+     The whole visual system is one drawing built from two primitives.
+
+     .datum    the ground line every element stands on. It carries the brand
+               signature: a small gateway notched into the start of the line,
+               with the single accent light at its threshold. This one mark is
+               reused for section separators, card top edges and diagram nodes.
+     .gateway  a recessed opening of three concentric orders. Depth comes from
+               the stepped orders and from light falling across each ring, not
+               from glow, blur or fill.
+     ========================================================================== */
   .datum {
     position: relative;
     border-block-start: 1px solid var(--line);
   }
 
-  .datum::before,
-  .datum::after {
+  /* The signature: a doorway standing on the line */
+  .datum::before {
     content: "";
     position: absolute;
-    inset-block-start: calc(var(--sp-4) * -1 - 1px);
-    inline-size: 1px;
-    block-size: var(--sp-8);
-    background: var(--line-strong);
-  }
-
-  .datum::before {
+    inset-block-start: calc(var(--sp-12) * -1);
     inset-inline-start: 0;
-  }
-
-  .datum::after {
-    inset-inline-end: 0;
-  }
-
-  .arch {
-    position: relative;
+    inline-size: var(--sp-24);
+    block-size: var(--sp-12);
     border: 1px solid var(--line-strong);
     border-block-end: 0;
     border-start-start-radius: var(--r-pill);
     border-start-end-radius: var(--r-pill);
   }
 
-  .arch::before {
+  /* The light at its threshold: the only accent on the page */
+  .datum::after {
     content: "";
     position: absolute;
-    inset: var(--sp-12) var(--sp-12) 0;
-    border: 1px solid var(--line);
-    border-block-end: 0;
-    border-radius: inherit;
+    inset-block-start: calc(var(--sp-4) * -1);
+    inset-inline-start: calc(var(--sp-8) + 2px);
+    inline-size: var(--sp-4);
+    block-size: var(--sp-4);
+    background: var(--accent);
   }
 
-  .arch::after {
+  /* A datum that only rules a line, with no mark on it */
+  .datum--plain::before,
+  .datum--plain::after {
+    content: none;
+  }
+
+  .gateway {
+    position: relative;
+  }
+
+  .gateway__order {
+    --edge: var(--edge-far);
+
+    position: absolute;
+    inset-block: 0;
+    inset-inline: 0;
+    border-start-start-radius: var(--r-pill);
+    border-start-end-radius: var(--r-pill);
+    background: linear-gradient(to bottom, var(--plane), transparent 44%);
+  }
+
+  /* Each order steps in and down, so the opening reads as a thick wall cut
+     through in three passes rather than as a ring drawn on the page. */
+  .gateway__order:nth-child(2) {
+    --edge: var(--edge-mid);
+    inset-block-start: var(--sp-16);
+    inset-inline: var(--sp-16);
+  }
+
+  .gateway__order:nth-child(3) {
+    --edge: var(--edge-near);
+    inset-block-start: var(--sp-32);
+    inset-inline: var(--sp-32);
+    background: linear-gradient(to bottom, var(--light), var(--plane) 30%, transparent 54%);
+  }
+
+  /* 1px ring, lit at the crown, fading to nothing at the ground */
+  .gateway__order::before {
     content: "";
     position: absolute;
-    inset: calc(var(--sp-12) + 1px) calc(var(--sp-12) + 1px) 0;
+    inset: 0;
     border-radius: inherit;
-    background: linear-gradient(to bottom, var(--light), transparent 62%);
+    padding: 1px;
+    background: linear-gradient(to bottom, var(--edge), var(--edge) 24%, transparent 88%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 
   /* ---------- Header: transparent over the hero, hairline glass after 60px ---------- */
@@ -190,10 +232,12 @@
     white-space: nowrap;
   }
 
+  /* Supplied artwork. Size is fixed in the markup too, so the header never
+     shifts while it loads. */
   .logo__mark {
-    inline-size: 22px;
-    block-size: 28px;
-    color: var(--text);
+    inline-size: 46px;
+    block-size: 36px;
+    flex: none;
   }
 
   /* Desktop nav */
