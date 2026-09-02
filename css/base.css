@@ -54,11 +54,13 @@
   }
 
   /* ---------- Headings ---------- */
+  /* 600 rather than 700 across the board: at display sizes Alexandria at 700
+     shouts, and dropping the weight saves a whole 30 KB face per script. */
   h1,
   h2,
   h3,
   h4 {
-    font-weight: 700;
+    font-weight: 600;
     line-height: var(--lh-heading);
     letter-spacing: -0.01em;
     text-wrap: balance;
@@ -89,10 +91,23 @@
     color: var(--text-muted);
   }
 
-  /* Digits stay Latin in both languages; tabular in stats and prices */
+  /* Digits stay Latin in both languages; tabular wherever they line up.
+     Isolation matters as much as the font: without it the bidi algorithm
+     reorders "-70%" to "70%-" and "40+" to "+40" inside an Arabic sentence. */
   .num,
-  .tabular {
+  .tabular,
+  .trust__num,
+  .figure__num,
+  .work__num,
+  .plan__amount,
+  .process__num,
+  .marquee__item {
     font-variant-numeric: tabular-nums;
+    direction: ltr;
+    unicode-bidi: isolate;
+    /* direction: ltr would stretch a grid item and pull the figure to the left
+       edge of an Arabic column, so pin the box back to the reading start. */
+    justify-self: start;
   }
 
   /* ---------- Links & controls ---------- */
@@ -203,6 +218,24 @@
   }
 
   .skip-link:focus-visible {
+    transform: none;
+  }
+
+  /* ---------- Scroll reveal ----------
+     The hidden state is applied only when js/main.js has confirmed it will run
+     and motion is welcome. Without JavaScript, or under reduced motion, nothing
+     is ever hidden, so the content is always present for readers and crawlers. */
+  html.can-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(var(--sp-16));
+    transition:
+      opacity var(--dur-in) var(--ease),
+      transform var(--dur-in) var(--ease);
+    transition-delay: calc(var(--reveal-i, 0) * var(--stagger));
+  }
+
+  html.can-reveal [data-reveal].is-in {
+    opacity: 1;
     transform: none;
   }
 

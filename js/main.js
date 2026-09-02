@@ -1,9 +1,12 @@
 /* ==========================================================================
    بوابتك - main
-   Header state, active nav link, mobile menu, language toggle, lazy hero
-   floor grid. No scroll listeners: IntersectionObserver drives everything.
+   Header state, active nav link, mobile menu, language toggle, contact form,
+   lazy hero floor grid. No scroll listeners: IntersectionObserver drives
+   everything that depends on position.
+
+   The accordion, the marquee and the automation flow are CSS only.
    ========================================================================== */
-import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=7';
+import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=18';
 
 i18nInit();
 
@@ -31,7 +34,7 @@ if (header && sentinel && 'IntersectionObserver' in window) {
   header.classList.add('is-scrolled');
 }
 
-/* ---------- Active nav link: the section in the middle of the viewport ---------- */
+/* ---------- Active nav link: the section crossing the middle of the viewport ---------- */
 const navLinks = Array.from(document.querySelectorAll('.nav__link[href^="#"], .menu__link[href^="#"]'));
 const navSections = navLinks
   .map((link) => document.querySelector(link.getAttribute('href')))
@@ -154,12 +157,222 @@ langToggles.forEach((button) => {
   });
 });
 
+/* ==========================================================================
+   CONTACT FORM
+   Validated in the page, each message under the field it belongs to, and the
+   success state replaces the fields without navigating.
+
+   Messages are held as dictionary keys rather than as rendered text, so a
+   language switch while errors are on screen rewrites them correctly.
+   ========================================================================== */
+const form = document.getElementById('contactForm');
+
+const RULES = [
+  {
+    id: 'fName',
+    error: 'eName',
+    key: 'contact.errName',
+    test: (value) => value.trim().length >= 2,
+  },
+  {
+    id: 'fPhone',
+    error: 'ePhone',
+    key: 'contact.errPhone',
+    /* Accepts the shapes people actually type: +20, 00, spaces, dashes */
+    test: (value) => {
+      const digits = value.replace(/\D/g, '');
+      return /^[\d\s()+-]+$/.test(value.trim()) && digits.length >= 8 && digits.length <= 15;
+    },
+  },
+  {
+    id: 'fEmail',
+    error: 'eEmail',
+    key: 'contact.errEmail',
+    test: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()),
+  },
+  {
+    id: 'fService',
+    error: 'eService',
+    key: 'contact.errService',
+    test: (value) => value !== '',
+  },
+];
+
+function paintMessage(el) {
+  if (!el) return;
+  const key = el.dataset.errorKey;
+  el.textContent = key ? t(key) : '';
+}
+
+function setFieldError(rule, invalid) {
+  const control = document.getElementById(rule.id);
+  const message = document.getElementById(rule.error);
+  if (!control || !message) return;
+
+  const field = control.closest('.field');
+  if (field) field.classList.toggle('is-invalid', invalid);
+  control.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+  if (invalid) message.dataset.errorKey = rule.key;
+  else delete message.dataset.errorKey;
+  paintMessage(message);
+}
+
+function validateForm() {
+  let firstInvalid = null;
+  RULES.forEach((rule) => {
+    const control = document.getElementById(rule.id);
+    if (!control) return;
+    const ok = rule.test(control.value);
+    setFieldError(rule, !ok);
+    if (!ok && !firstInvalid) firstInvalid = control;
+  });
+  return firstInvalid;
+}
+
+if (form) {
+  const formError = document.getElementById('formError');
+  const submitButton = document.getElementById('formSubmit');
+  const resetButton = document.getElementById('formReset');
+
+  function showFormError(key) {
+    if (!formError) return;
+    if (key) formError.dataset.errorKey = key;
+    else delete formError.dataset.errorKey;
+    paintMessage(formError);
+  }
+
+  /* A field's message clears as soon as it becomes valid, but never appears
+     before the first submit, so nobody is corrected while still typing. */
+  let submitted = false;
+  RULES.forEach((rule) => {
+    const control = document.getElementById(rule.id);
+    if (!control) return;
+    const revalidate = () => {
+      if (!submitted) return;
+      setFieldError(rule, !rule.test(control.value));
+    };
+    control.addEventListener('input', revalidate);
+    control.addEventListener('change', revalidate);
+    control.addEventListener('blur', revalidate);
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    submitted = true;
+    showFormError(null);
+
+    const firstInvalid = validateForm();
+    if (firstInvalid) {
+      showFormError('contact.errForm');
+      firstInvalid.focus();
+      return;
+    }
+
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) {
+      /* Not wired up yet. Say so honestly rather than showing a success state
+         for a request that was never sent. */
+      console.error('[bawabtak] contact form: set data-endpoint on #contactForm before launch.');
+      showFormError('contact.errSend');
+      return;
+    }
+
+    const label = submitButton ? submitButton.textContent : '';
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = t('contact.sending');
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      form.classList.add('is-done');
+      const done = form.querySelector('.form__done-title');
+      if (done) {
+        done.setAttribute('tabindex', '-1');
+        done.focus();
+      }
+    } catch (error) {
+      console.error('[bawabtak] contact form failed:', error);
+      showFormError('contact.errSend');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = label || t('contact.submit');
+      }
+    }
+  });
+
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      form.reset();
+      submitted = false;
+      RULES.forEach((rule) => setFieldError(rule, false));
+      showFormError(null);
+      form.classList.remove('is-done');
+      const first = document.getElementById('fName');
+      if (first) first.focus();
+    });
+  }
+}
+
+/* Repaint any live messages after a language switch */
 document.addEventListener('bawabtak:langchange', () => {
   syncMenuLabel();
+  document.querySelectorAll('[data-error-key]').forEach(paintMessage);
   if (heroGrid) heroGrid.anchor();
 });
 
-/* ---------- Hero floor grid: loaded after `load`, only where it is cheap ---------- */
+/* ==========================================================================
+   SCROLL REVEAL
+   Purpose: reading order. Each group enters once, in the order it is meant to
+   be read, and then stops mattering. Nothing loops.
+
+   The hidden state lives behind html.can-reveal, which is only added here, so
+   a failed script or a reduced-motion preference leaves every element visible.
+   ========================================================================== */
+function armReveal() {
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) return;
+
+  const groups = document.querySelectorAll('[data-reveal-group]');
+  const solo = document.querySelectorAll('[data-reveal]');
+  if (!groups.length && !solo.length) return;
+
+  /* Index each child inside its group, capped at five, so a long grid never
+     ends with items crawling in seconds after the rest. */
+  groups.forEach((group) => {
+    Array.from(group.children).forEach((child, index) => {
+      child.setAttribute('data-reveal', '');
+      child.style.setProperty('--reveal-i', String(Math.min(index, 4)));
+    });
+  });
+
+  document.documentElement.classList.add('can-reveal');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px', threshold: 0.01 }
+  );
+
+  document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+}
+
+armReveal();
+
+/* ==========================================================================
+   HERO FLOOR GRID
+   Loaded after `load`, and only where drawing it is cheap.
+   ========================================================================== */
 let heroGrid = null;
 
 function heroBackgroundAllowed() {
@@ -181,7 +394,7 @@ function startHeroBackground() {
   const observer = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
-    import('./hero-grid.js?v=7')
+    import('./hero-grid.js?v=18')
       .then((module) => {
         heroGrid = module.initHeroGrid(host, {
           horizon: document.getElementById('heroBase'),

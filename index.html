@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title data-i18n="meta.title">بوابتك | برمجة وأتمتة تخلّي شغلك يمشي من غيرك</title>
-  <meta name="description" data-i18n-attr="content:meta.description" content="بوابتك بيت برمجة مصري يبني تطبيقات الويب والموبايل، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. تسليم شغّال، مش سلايدات. احجز استشارة مجانية 20 دقيقة.">
+  <title data-i18n="meta.title">بوابتك | برمجيات وأتمتة تدير أعمالك من دونك</title>
+  <meta name="description" data-i18n-attr="content:meta.description" content="بوابتك شركة برمجيات تبني تطبيقات الويب والهواتف، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. نسلم أنظمة تعمل، لا عروضا تقديمية. احجز استشارة مجانية مدتها 20 دقيقة.">
   <meta name="theme-color" content="#07080B">
   <meta name="color-scheme" content="dark">
 
@@ -13,8 +13,8 @@
        and the 1200x630 OG images assets/og-ar.png and assets/og-en.png. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="بوابتك">
-  <meta property="og:title" data-i18n-attr="content:meta.title" content="بوابتك | برمجة وأتمتة تخلّي شغلك يمشي من غيرك">
-  <meta property="og:description" data-i18n-attr="content:meta.description" content="بوابتك بيت برمجة مصري يبني تطبيقات الويب والموبايل، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. تسليم شغّال، مش سلايدات. احجز استشارة مجانية 20 دقيقة.">
+  <meta property="og:title" data-i18n-attr="content:meta.title" content="بوابتك | برمجيات وأتمتة تدير أعمالك من دونك">
+  <meta property="og:description" data-i18n-attr="content:meta.description" content="بوابتك شركة برمجيات تبني تطبيقات الويب والهواتف، وأتمتة العمليات وربط الأنظمة، ووكلاء الذكاء الاصطناعي. نسلم أنظمة تعمل، لا عروضا تقديمية. احجز استشارة مجانية مدتها 20 دقيقة.">
   <meta property="og:locale" content="ar_EG">
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
@@ -38,29 +38,29 @@
     })();
   </script>
 
-  <!-- Fonts: the one allowed third-party request. PHASE 3: self-host woff2 subsets
-       under assets/fonts/ with preload for the hero weight, then remove this. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <!-- Self-hosted faces. The two the hero paints with are preloaded so the swap
+       from the fallback happens before the visitor reads the headline. -->
+  <link rel="preload" href="assets/fonts/alexandria-600-arabic.woff2?v=1" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/alexandria-400-arabic.woff2?v=1" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css?v=1">
 
-  <link rel="stylesheet" href="css/tokens.css?v=12">
-  <link rel="stylesheet" href="css/base.css?v=12">
-  <link rel="stylesheet" href="css/components.css?v=12">
-  <link rel="stylesheet" href="css/sections.css?v=12">
+  <link rel="stylesheet" href="css/tokens.css?v=19">
+  <link rel="stylesheet" href="css/base.css?v=19">
+  <link rel="stylesheet" href="css/components.css?v=19">
+  <link rel="stylesheet" href="css/sections.css?v=19">
 
-  <script type="module" src="js/main.js?v=7"></script>
+  <script type="module" src="js/main.js?v=18"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main" data-i18n="a11y.skip">تخطَّ إلى المحتوى</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">انتقل إلى المحتوى</a>
   <div class="scroll-sentinel" aria-hidden="true"></div>
 
   <header class="header" id="header">
     <div class="container header__inner">
       <!-- The brand mark is the supplied artwork, keyed off its dark ground.
            The wordmark stays live text so it switches with the language; the
-           full Arabic lockup (assets/logo-lockup.webp) is for the footer and
-           the OG images, where it has room to be read. -->
+           full Arabic lockup (assets/logo-lockup.webp) is used in the footer
+           and the OG images, where it has room to be read. -->
       <a class="logo" href="#top" aria-label="بوابتك" data-i18n-attr="aria-label:brand.name">
         <img class="logo__mark" src="assets/logo-mark.webp?v=1" width="46" height="36" alt="" decoding="async" fetchpriority="high">
         <span class="logo__word" data-i18n="brand.name">بوابتك</span>
@@ -69,10 +69,10 @@
       <nav class="nav" aria-label="القائمة الرئيسية" data-i18n-attr="aria-label:nav.label">
         <ul class="nav__list">
           <li><a class="nav__link" href="#services" data-i18n="nav.services">الخدمات</a></li>
-          <li><a class="nav__link" href="#process" data-i18n="nav.process">إزاي بنشتغل</a></li>
+          <li><a class="nav__link" href="#process" data-i18n="nav.process">كيف نعمل</a></li>
           <li><a class="nav__link" href="#work" data-i18n="nav.work">أعمالنا</a></li>
           <li><a class="nav__link" href="#pricing" data-i18n="nav.pricing">الأسعار</a></li>
-          <li><a class="nav__link" href="#faq" data-i18n="nav.faq">أسئلة</a></li>
+          <li><a class="nav__link" href="#faq" data-i18n="nav.faq">الأسئلة</a></li>
         </ul>
       </nav>
 
@@ -95,26 +95,29 @@
     <nav aria-label="القائمة الرئيسية" data-i18n-attr="aria-label:nav.label">
       <ul class="menu__list">
         <li class="menu__item" style="--i: 0"><a class="menu__link" href="#services" data-i18n="nav.services">الخدمات</a></li>
-        <li class="menu__item" style="--i: 1"><a class="menu__link" href="#process" data-i18n="nav.process">إزاي بنشتغل</a></li>
+        <li class="menu__item" style="--i: 1"><a class="menu__link" href="#process" data-i18n="nav.process">كيف نعمل</a></li>
         <li class="menu__item" style="--i: 2"><a class="menu__link" href="#work" data-i18n="nav.work">أعمالنا</a></li>
         <li class="menu__item" style="--i: 3"><a class="menu__link" href="#pricing" data-i18n="nav.pricing">الأسعار</a></li>
-        <li class="menu__item" style="--i: 4"><a class="menu__link" href="#faq" data-i18n="nav.faq">أسئلة</a></li>
+        <li class="menu__item" style="--i: 4"><a class="menu__link" href="#faq" data-i18n="nav.faq">الأسئلة</a></li>
       </ul>
     </nav>
     <div class="menu__footer datum">
       <a class="btn btn--primary btn--lg" href="#contact" data-i18n="hero.ctaPrimary">احجز استشارة مجانية</a>
-      <p class="menu__note" data-i18n="menu.note">استشارة 20 دقيقة مجانية، من غير أي التزام.</p>
+      <p class="menu__note" data-i18n="menu.note">استشارة مجانية مدتها 20 دقيقة، دون أي التزام.</p>
     </div>
   </div>
 
   <main id="main">
+    <!-- ====================================================================
+         HERO
+         ==================================================================== -->
     <section class="hero" id="top" aria-labelledby="heroTitle">
       <div class="hero__bg" id="heroGrid" aria-hidden="true"></div>
 
       <div class="container hero__content">
         <div class="hero__copy">
-          <h1 class="hero__title" id="heroTitle" data-i18n="hero.title">برمجة وأتمتة تخلّي شغلك يمشي من غيرك</h1>
-          <p class="hero__sub" data-i18n="hero.sub">بوابتك بتبني الأنظمة والتطبيقات والأتمتة اللي بتشيل الشغل اليدوي من على فريقك، وبتسلّمها شغّالة، مش سلايدات.</p>
+          <h1 class="hero__title" id="heroTitle" data-i18n="hero.title">برمجيات وأتمتة تدير أعمالك من دونك</h1>
+          <p class="hero__sub" data-i18n="hero.sub">نبني الأنظمة والتطبيقات وعمليات الأتمتة التي ترفع العمل اليدوي عن فريقك، ونسلمها وهي تعمل، لا عروضا تقديمية.</p>
 
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="#contact">
@@ -124,7 +127,7 @@
                 <path d="M13 6l6 6-6 6"/>
               </svg>
             </a>
-            <a class="btn btn--quiet btn--lg" href="#work" data-i18n="hero.ctaSecondary">شوف أعمالنا</a>
+            <a class="btn btn--quiet btn--lg" href="#work" data-i18n="hero.ctaSecondary">شاهد أعمالنا</a>
           </div>
         </div>
 
@@ -142,13 +145,13 @@
 
       <div class="hero__base" id="heroBase">
         <div class="container">
-          <div class="datum">
+          <div class="datum datum--lit">
             <!-- PLACEHOLDER: the three figures below come from the brief, not from an audited
                  source. Confirm them with Bawabtak before launch or replace them. -->
             <ul class="trust" aria-label="أرقام بوابتك" data-i18n-attr="aria-label:hero.trustLabel">
               <li class="trust__item">
                 <span class="trust__num">40+</span>
-                <span class="trust__label" data-i18n="hero.trust1">مشروع مسلّم</span>
+                <span class="trust__label" data-i18n="hero.trust1">مشروع منجز</span>
               </li>
               <li class="trust__item">
                 <span class="trust__num">6</span>
@@ -156,7 +159,7 @@
               </li>
               <li class="trust__item">
                 <span class="trust__num">3</span>
-                <span class="trust__label" data-i18n="hero.trust3">شهور دعم بعد التسليم</span>
+                <span class="trust__label" data-i18n="hero.trust3">أشهر دعم بعد الإطلاق</span>
               </li>
             </ul>
           </div>
@@ -164,10 +167,680 @@
       </div>
     </section>
 
-    <!-- PHASE 2: results strip, services, automation flow, process, work, stack,
-         why Bawabtak, pricing, testimonials, FAQ, contact form. -->
+    <!-- ====================================================================
+         RESULTS
+         PLACEHOLDER: these three outcomes are quoted from the brief. They need a
+         named project behind each one before launch, or they should come out.
+         ==================================================================== -->
+    <section class="results" aria-label="نتائج من أعمالنا" data-i18n-attr="aria-label:results.label">
+      <div class="container">
+        <div class="datum">
+          <ul class="results__grid" data-reveal data-reveal-group>
+            <li class="figure">
+              <span class="figure__num" data-i18n="results.oneNum">70%</span>
+              <span class="figure__label" data-i18n="results.one">انخفاض في زمن معالجة الطلبات</span>
+            </li>
+            <li class="figure">
+              <span class="figure__num" data-i18n="results.twoNum">5</span>
+              <span class="figure__label" data-i18n="results.two">أنظمة موحدة في واجهة واحدة</span>
+            </li>
+            <li class="figure">
+              <span class="figure__num" data-i18n="results.threeNum">80%</span>
+              <span class="figure__label" data-i18n="results.three">من الاستفسارات يجيب عنها روبوت محادثة</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SERVICES
+         ==================================================================== -->
+    <section class="section" id="services" aria-labelledby="servicesTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="servicesTitle" data-i18n="services.title">ما نبنيه</h2>
+            <p class="section-head__sub" data-i18n="services.sub">كل خدمة تنتهي بنظام يعمل بين يدي فريقك، لا بتقرير.</p>
+          </div>
+
+          <ul class="services__grid" data-reveal data-reveal-group>
+            <li class="card services__item services__item--lead">
+              <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect x="3" y="4" width="7" height="6" rx="1.5"/>
+                <rect x="14" y="14" width="7" height="6" rx="1.5"/>
+                <path d="M10 7h4a3 3 0 0 1 3 3v4"/>
+                <path d="M15 12.5 17 15l2-2.5"/>
+              </svg>
+              <h3 class="card__title" data-i18n="services.a1">الأتمتة وربط الأنظمة</h3>
+              <p class="card__body" data-i18n="services.a2">نربط أنظمتك الحالية ببعضها ونزيل الخطوات اليدوية، من الطلب إلى الفاتورة دون تدخل.</p>
+            </li>
+
+            <li class="card services__item">
+              <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <path d="M3 9h18"/>
+                <path d="M6.5 6.5h.01M9.5 6.5h.01"/>
+              </svg>
+              <h3 class="card__title" data-i18n="services.b1">تطبيقات ويب مخصصة</h3>
+              <p class="card__body" data-i18n="services.b2">نظام مبني على طريقة عملك أنت، لا قالب جاهز غيرت ألوانه.</p>
+            </li>
+
+            <li class="card services__item">
+              <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M20 14.5a3 3 0 0 1-3 3H9.5L5 20.5V6.5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3z"/>
+                <path d="M9 10.5h6M9 13.5h3.5"/>
+              </svg>
+              <h3 class="card__title" data-i18n="services.c1">وكلاء ذكاء اصطناعي وروبوتات محادثة</h3>
+              <p class="card__body" data-i18n="services.c2">مرتبطة ببياناتك، تجيب بدقة، وتحول المحادثة إلى موظف عند الحاجة.</p>
+            </li>
+
+            <li class="card services__item">
+              <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect x="7" y="2.5" width="10" height="19" rx="2.5"/>
+                <path d="M10.5 18.5h3"/>
+              </svg>
+              <h3 class="card__title" data-i18n="services.d1">تطبيقات الهواتف</h3>
+              <p class="card__body" data-i18n="services.d2">iOS وأندرويد من قاعدة كود واحدة، بأداء أصلي.</p>
+            </li>
+
+            <li class="card services__item">
+              <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M4.5 7.5h15l-1.15 12a1.5 1.5 0 0 1-1.5 1.35H7.15a1.5 1.5 0 0 1-1.5-1.35z"/>
+                <path d="M9 10V6.5a3 3 0 0 1 6 0V10"/>
+              </svg>
+              <h3 class="card__title" data-i18n="services.e1">المتاجر الإلكترونية</h3>
+              <p class="card__body" data-i18n="services.e2">متجر سريع يبيع فعلا. الدفع والشحن والمخزون مرتبطة ببعضها.</p>
+            </li>
+
+            <li class="card services__item services__item--last">
+              <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M20 12a8 8 0 1 1-2.34-5.66"/>
+                <path d="M20 4v4.5h-4.5"/>
+              </svg>
+              <h3 class="card__title" data-i18n="services.f1">الصيانة والتطوير المستمر</h3>
+              <p class="card__body" data-i18n="services.f2">فريق ثابت يطور ويصلح شهريا بدلا من البحث عن فريق في كل مرة.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         AUTOMATION
+         ==================================================================== -->
+    <section class="section" id="automation" aria-labelledby="automationTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="automationTitle" data-i18n="automation.title">كيف تعمل الأتمتة</h2>
+            <p class="section-head__sub" data-i18n="automation.sub">يدخل الطلب من جهة، ويخرج فاتورة وإشعارا من الجهة الأخرى، دون أن يفتح أحد جدول بيانات.</p>
+          </div>
+
+          <!-- Four gates on one rail, with a single light running through them.
+               The gate is the same notch used on every datum, so the diagram is
+               drawn in the same language as the rest of the page. -->
+          <div class="automation__flow" data-reveal>
+            <div class="flow__rail">
+              <span class="flow__spark" aria-hidden="true"></span>
+              <ol class="flow__steps" aria-label="مخطط: طلب جديد، تحقق وتصنيف، تحديث الأنظمة، إشعار وفاتورة" data-i18n-attr="aria-label:a11y.diagram">
+                <li class="flow__step">
+                  <span class="flow__gate" style="--i: 0" aria-hidden="true"></span>
+                  <span class="flow__title" data-i18n="automation.s1">طلب جديد</span>
+                  <span class="flow__desc" data-i18n="automation.s1d">من الموقع أو واتساب أو المندوب</span>
+                </li>
+                <li class="flow__step">
+                  <span class="flow__gate" style="--i: 1" aria-hidden="true"></span>
+                  <span class="flow__title" data-i18n="automation.s2">تحقق وتصنيف</span>
+                  <span class="flow__desc" data-i18n="automation.s2d">الرصيد والعميل والأولوية</span>
+                </li>
+                <li class="flow__step">
+                  <span class="flow__gate" style="--i: 2" aria-hidden="true"></span>
+                  <span class="flow__title" data-i18n="automation.s3">تحديث الأنظمة</span>
+                  <span class="flow__desc" data-i18n="automation.s3d">المخزون والحسابات والشحن</span>
+                </li>
+                <li class="flow__step">
+                  <span class="flow__gate" style="--i: 3" aria-hidden="true"></span>
+                  <span class="flow__title" data-i18n="automation.s4">إشعار وفاتورة</span>
+                  <span class="flow__desc" data-i18n="automation.s4d">للعميل وللفريق في اللحظة نفسها</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <ul class="automation__metrics" data-reveal data-reveal-group>
+            <li class="figure">
+              <span class="figure__num" data-i18n="automation.m1n">-70%</span>
+              <span class="figure__label" data-i18n="automation.m1">من الوقت اليدوي</span>
+            </li>
+            <li class="figure">
+              <span class="figure__num" data-i18n="automation.m2n">0</span>
+              <span class="figure__label" data-i18n="automation.m2">أخطاء إدخال</span>
+            </li>
+            <li class="figure">
+              <span class="figure__num" data-i18n="automation.m3n">24/7</span>
+              <span class="figure__label" data-i18n="automation.m3">تشغيل متواصل</span>
+            </li>
+          </ul>
+
+          <div class="automation__cta" data-reveal>
+            <a class="btn btn--primary btn--lg" href="#contact">
+              <span data-i18n="automation.cta">حدثنا عن عملية لديك</span>
+              <svg class="icon icon--dir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M5 12h14"/>
+                <path d="M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         PROCESS
+         ==================================================================== -->
+    <section class="section" id="process" aria-labelledby="processTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="processTitle" data-i18n="process.title">كيف نعمل</h2>
+            <p class="section-head__sub" data-i18n="process.sub">أربع خطوات، لكل واحدة مخرج تراه.</p>
+          </div>
+
+          <ol class="process__steps" data-reveal data-reveal-group>
+            <li class="process__step">
+              <span class="process__num">01</span>
+              <h3 class="process__title" data-i18n="process.s1">نفهم</h3>
+              <p class="process__desc" data-i18n="process.s1d">جلسة مدتها 20 دقيقة تنتهي بنطاق واضح ومكتوب.</p>
+            </li>
+            <li class="process__step">
+              <span class="process__num">02</span>
+              <h3 class="process__title" data-i18n="process.s2">نخطط</h3>
+              <p class="process__desc" data-i18n="process.s2d">عرض سعر بمدة وتسليمات محددة. لا مفاجآت بعده.</p>
+            </li>
+            <li class="process__step">
+              <span class="process__num">03</span>
+              <h3 class="process__title" data-i18n="process.s3">نبني</h3>
+              <p class="process__desc" data-i18n="process.s3d">تسليم أسبوعي تراه يعمل، لا تقريرا عنه.</p>
+            </li>
+            <li class="process__step">
+              <span class="process__num">04</span>
+              <h3 class="process__title" data-i18n="process.s4">نسلم وندعم</h3>
+              <p class="process__desc" data-i18n="process.s4d">تدريب فريقك، وثلاثة أشهر دعم مشمولة.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         WORK
+         PLACEHOLDER: real client names, sectors, screenshots and case-study
+         links go here. Nothing below names a client, so nothing is invented.
+         ==================================================================== -->
+    <section class="section" id="work" aria-labelledby="workTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="workTitle" data-i18n="work.title">أعمالنا</h2>
+            <p class="section-head__sub" data-i18n="work.sub">نماذج من نوع العمل الذي نسلمه.</p>
+          </div>
+
+          <div class="work__list" data-reveal data-reveal-group>
+            <article class="work__row">
+              <div class="work__metric">
+                <span class="work__num">-70%</span>
+                <span class="work__unit" data-i18n="work.c1m">من زمن المعالجة</span>
+              </div>
+              <div class="work__body">
+                <h3 class="work__title" data-i18n="work.c1">أتمتة دورة الطلبات</h3>
+                <p class="work__problem" data-i18n="work.c1p">كانت الطلبات تنتقل يدويا بين أكثر من برنامج، وكل نقل احتمال خطأ.</p>
+              </div>
+            </article>
+
+            <article class="work__row">
+              <div class="work__metric">
+                <span class="work__num">5</span>
+                <span class="work__unit" data-i18n="work.c2m">أنظمة في واجهة واحدة</span>
+              </div>
+              <div class="work__body">
+                <h3 class="work__title" data-i18n="work.c2">توحيد الأنظمة في لوحة واحدة</h3>
+                <p class="work__problem" data-i18n="work.c2p">كل قسم يعمل على نظام منفصل، دون صورة واحدة للعمل.</p>
+              </div>
+            </article>
+
+            <article class="work__row">
+              <div class="work__metric">
+                <span class="work__num">80%</span>
+                <span class="work__unit" data-i18n="work.c3m">من الاستفسارات</span>
+              </div>
+              <div class="work__body">
+                <h3 class="work__title" data-i18n="work.c3">روبوت محادثة على بيانات العميل</h3>
+                <p class="work__problem" data-i18n="work.c3p">فريق الدعم يجيب عن الأسئلة نفسها كل يوم بدل التركيز في الحالات الصعبة.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STACK
+         PLACEHOLDER: real vendor logos could replace these wordmarks, but they
+         would each be a third-party request, so they are set in type for now.
+         ==================================================================== -->
+    <section class="section" aria-labelledby="stackTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="stack__title" id="stackTitle" data-i18n="stack.title">نختار الأداة حسب المشكلة، لا حسب الرائج</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack__marquee marquee" aria-label="التقنيات التي نعمل بها" data-i18n-attr="aria-label:stack.label">
+        <div class="marquee__track">
+          <span class="marquee__item">Laravel</span>
+          <span class="marquee__item">Next.js</span>
+          <span class="marquee__item">React</span>
+          <span class="marquee__item">Node</span>
+          <span class="marquee__item">Python</span>
+          <span class="marquee__item">PostgreSQL</span>
+          <span class="marquee__item">Flutter</span>
+          <span class="marquee__item">n8n</span>
+          <span class="marquee__item">OpenAI</span>
+          <span class="marquee__item">AWS</span>
+        </div>
+        <div class="marquee__track" aria-hidden="true">
+          <span class="marquee__item">Laravel</span>
+          <span class="marquee__item">Next.js</span>
+          <span class="marquee__item">React</span>
+          <span class="marquee__item">Node</span>
+          <span class="marquee__item">Python</span>
+          <span class="marquee__item">PostgreSQL</span>
+          <span class="marquee__item">Flutter</span>
+          <span class="marquee__item">n8n</span>
+          <span class="marquee__item">OpenAI</span>
+          <span class="marquee__item">AWS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         WHY
+         ==================================================================== -->
+    <section class="section" aria-labelledby="whyTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="whyTitle" data-i18n="why.title">لماذا بوابتك</h2>
+          </div>
+
+          <ul class="why__grid" data-reveal data-reveal-group>
+            <li class="why__item">
+              <h3 class="why__title" data-i18n="why.w1">كود تملكه</h3>
+              <p class="why__body" data-i18n="why.w1d">التسليم بالمستودع والتوثيق كاملا. لا احتكار ولا ارتباط بنا.</p>
+            </li>
+            <li class="why__item">
+              <h3 class="why__title" data-i18n="why.w2">مدد حقيقية</h3>
+              <p class="why__body" data-i18n="why.w2d">نقول ستة أسابيع حين تكون ستة أسابيع.</p>
+            </li>
+            <li class="why__item">
+              <h3 class="why__title" data-i18n="why.w3">شخص واحد يرد عليك</h3>
+              <p class="why__body" data-i18n="why.w3d">مدير حساب واحد ثابت، لا تذكرة في طابور.</p>
+            </li>
+            <li class="why__item">
+              <h3 class="why__title" data-i18n="why.w4">عربية مبنية بإتقان</h3>
+              <p class="why__body" data-i18n="why.w4d">الاتجاه من اليمين والخطوط والمحتوى العربي مبنية بشكل صحيح من اليوم الأول، لا مترجمة لاحقا.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         PRICING
+         ==================================================================== -->
+    <section class="section" id="pricing" aria-labelledby="pricingTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="pricingTitle" data-i18n="pricing.title">الأسعار</h2>
+          </div>
+
+          <div class="pricing__grid" data-reveal data-reveal-group>
+            <article class="plan">
+              <div class="plan__head">
+                <h3 class="plan__name" data-i18n="pricing.p1">الإطلاق</h3>
+              </div>
+              <p class="plan__who" data-i18n="pricing.p1w">فكرة أو موقع أول</p>
+              <p class="plan__price">
+                <span class="plan__from" data-i18n="pricing.from">يبدأ من</span>
+                <span class="plan__amount" data-i18n="pricing.p1a">500</span>
+                <span class="plan__currency" data-i18n="pricing.p1c">دولار</span>
+              </p>
+              <ul class="plan__features">
+                <li class="plan__feature" data-i18n="pricing.p1f1">صفحة هبوط أو موقع تعريفي</li>
+                <li class="plan__feature" data-i18n="pricing.p1f2">تصميم مخصص</li>
+                <li class="plan__feature" data-i18n="pricing.p1f3">تحسين أساسي لمحركات البحث</li>
+                <li class="plan__feature" data-i18n="pricing.p1f4">تسليم خلال أسبوعين إلى ثلاثة</li>
+              </ul>
+              <a class="btn btn--quiet" href="#contact" data-i18n="pricing.cta">احجز جلسة نطاق</a>
+            </article>
+
+            <article class="plan plan--lead">
+              <div class="plan__head">
+                <h3 class="plan__name" data-i18n="pricing.p2">النمو</h3>
+                <span class="badge" data-i18n="pricing.badge">الأكثر طلبا</span>
+              </div>
+              <p class="plan__who" data-i18n="pricing.p2w">شركة تحتاج نظاما</p>
+              <p class="plan__price">
+                <span class="plan__from" data-i18n="pricing.from">يبدأ من</span>
+                <span class="plan__amount" data-i18n="pricing.p2a">1,900</span>
+                <span class="plan__currency" data-i18n="pricing.p2c">دولار</span>
+              </p>
+              <ul class="plan__features">
+                <li class="plan__feature" data-i18n="pricing.p2f1">نظام أو تطبيق مخصص</li>
+                <li class="plan__feature" data-i18n="pricing.p2f2">لوحة تحكم</li>
+                <li class="plan__feature" data-i18n="pricing.p2f3">تكاملات مع أنظمتك</li>
+                <li class="plan__feature" data-i18n="pricing.p2f4">ثلاثة أشهر دعم</li>
+              </ul>
+              <a class="btn btn--primary" href="#contact" data-i18n="pricing.cta">احجز جلسة نطاق</a>
+            </article>
+
+            <article class="plan">
+              <div class="plan__head">
+                <h3 class="plan__name" data-i18n="pricing.p3">حسب الطلب</h3>
+              </div>
+              <p class="plan__who" data-i18n="pricing.p3w">مؤسسة أو أتمتة معقدة</p>
+              <p class="plan__price">
+                <span class="plan__amount" data-i18n="pricing.p3a">حسب النطاق</span>
+              </p>
+              <ul class="plan__features">
+                <li class="plan__feature" data-i18n="pricing.p3f1">فريق مخصص</li>
+                <li class="plan__feature" data-i18n="pricing.p3f2">أتمتة وربط أنظمة</li>
+                <li class="plan__feature" data-i18n="pricing.p3f3">اتفاقية مستوى خدمة</li>
+                <li class="plan__feature" data-i18n="pricing.p3f4">تطوير مستمر</li>
+              </ul>
+              <a class="btn btn--quiet" href="#contact" data-i18n="pricing.cta">احجز جلسة نطاق</a>
+            </article>
+          </div>
+
+          <p class="pricing__note" data-reveal data-i18n="pricing.sub">الأسعار تقديرية وتتحدد بعد جلسة تحديد النطاق. لا رسوم خفية.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         QUOTES
+         PLACEHOLDER: every quote, name and role below is a slot. Fill them with
+         real, approved client quotes or delete this whole section before launch.
+         Nothing here may ship as written.
+         ==================================================================== -->
+    <section class="section" aria-labelledby="quotesTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="quotesTitle" data-i18n="quotes.title">آراء العملاء</h2>
+          </div>
+
+          <div class="quotes__grid" data-reveal data-reveal-group>
+            <figure class="quote">
+              <blockquote class="quote__body" data-i18n="quotes.q1">مكان اقتباس العميل الأول. سطران على الأكثر.</blockquote>
+              <figcaption class="quote__who">
+                <span class="quote__name" data-i18n="quotes.n1">اسم العميل</span>
+                <span class="quote__role" data-i18n="quotes.r1">المسمى الوظيفي، الشركة</span>
+              </figcaption>
+            </figure>
+
+            <figure class="quote">
+              <blockquote class="quote__body" data-i18n="quotes.q2">مكان اقتباس العميل الثاني. سطران على الأكثر.</blockquote>
+              <figcaption class="quote__who">
+                <span class="quote__name" data-i18n="quotes.n2">اسم العميل</span>
+                <span class="quote__role" data-i18n="quotes.r2">المسمى الوظيفي، الشركة</span>
+              </figcaption>
+            </figure>
+
+            <figure class="quote">
+              <blockquote class="quote__body" data-i18n="quotes.q3">مكان اقتباس العميل الثالث. سطران على الأكثر.</blockquote>
+              <figcaption class="quote__who">
+                <span class="quote__name" data-i18n="quotes.n3">اسم العميل</span>
+                <span class="quote__role" data-i18n="quotes.r3">المسمى الوظيفي، الشركة</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FAQ
+         ==================================================================== -->
+    <section class="section" id="faq" aria-labelledby="faqTitle">
+      <div class="container">
+        <div class="datum">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="faqTitle" data-i18n="faq.title">أسئلة متكررة</h2>
+          </div>
+
+          <div class="faq__list" data-reveal>
+            <details class="faq__item" open>
+              <summary class="faq__q">
+                <span data-i18n="faq.q1">كم يستغرق العمل؟</span>
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a" data-i18n="faq.a1">الموقع التعريفي من أسبوعين إلى ثلاثة. النظام أو التطبيق المخصص ستة أسابيع في المتوسط. تتحدد المدة وتكتب في العرض بعد جلسة النطاق، ولا تتغير بعدها إلا إذا غيرت النطاق.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                <span data-i18n="faq.q2">هل تعملون بعقد؟</span>
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a" data-i18n="faq.a2">نعم. عقد مكتوب يحدد النطاق والتسليمات والمدة والدفعات وحقوق الملكية. لا يبدأ أي عمل دون عقد.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                <span data-i18n="faq.q3">هل الكود ملكي؟</span>
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a" data-i18n="faq.a3">ملكك بالكامل من يوم التسليم. نسلمك المستودع والتوثيق وبيانات الاستضافة. وإذا قررت المتابعة مع فريق آخر، لا شيء يعوقك.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                <span data-i18n="faq.q4">هل تدعمون بعد الإطلاق؟</span>
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a" data-i18n="faq.a4">ثلاثة أشهر دعم مشمولة في باقة النمو، تغطي إصلاح الأعطال والتعديلات الصغيرة. بعدها هناك باقة صيانة شهرية اختيارية.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                <span data-i18n="faq.q5">هل تعملون مع فريق تقني قائم لدي؟</span>
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a" data-i18n="faq.a5">نعم. نعمل إلى جانب فريقك في المستودع نفسه، بمراجعة كود ومعايير متفق عليها، أو نأخذ جزءا محددا ونسلمه جاهزا للدمج.</p>
+            </details>
+
+            <!-- PLACEHOLDER: confirm the payment terms below with Bawabtak. -->
+            <details class="faq__item">
+              <summary class="faq__q">
+                <span data-i18n="faq.q6">كيف تتم الدفعات؟</span>
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a" data-i18n="faq.a6">دفعات مرتبطة بالتسليمات لا بالوقت. الدفعة الأولى عند بدء العمل والباقي عند كل تسليم متفق عليه. التفاصيل تكتب في العرض.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CONTACT
+         PLACEHOLDER: the form posts nowhere yet. Set data-endpoint on the form
+         to a real handler, and replace the WhatsApp number below.
+         ==================================================================== -->
+    <section class="section" id="contact" aria-labelledby="contactTitle">
+      <div class="container">
+        <div class="datum datum--lit">
+          <div class="section-head" data-reveal>
+            <h2 class="section-head__title" id="contactTitle" data-i18n="contact.title">ابدأ من بوابة واحدة</h2>
+            <p class="section-head__sub" data-i18n="contact.sub">أرسل لنا موجزا مختصرا، ونعود إليك في يوم العمل نفسه بموعد استشارة مدتها 20 دقيقة.</p>
+          </div>
+
+          <div class="contact__grid" data-reveal>
+            <form class="form" id="contactForm" method="post" data-endpoint="" novalidate>
+              <div class="form__fields">
+                <div class="form__pair">
+                  <div class="field">
+                    <label class="field__label" for="fName" data-i18n="contact.name">الاسم</label>
+                    <input class="field__control" type="text" id="fName" name="name" autocomplete="name"
+                           aria-describedby="eName" placeholder="الاسم الكامل"
+                           data-i18n-attr="placeholder:contact.namePh">
+                    <p class="field__error" id="eName" aria-live="polite"></p>
+                  </div>
+
+                  <div class="field">
+                    <label class="field__label" for="fPhone" data-i18n="contact.phone">واتساب أو هاتف</label>
+                    <input class="field__control" type="tel" id="fPhone" name="phone" autocomplete="tel" inputmode="tel"
+                           aria-describedby="ePhone" placeholder="رقم الهاتف مع رمز الدولة" dir="ltr"
+                           data-i18n-attr="placeholder:contact.phonePh">
+                    <p class="field__error" id="ePhone" aria-live="polite"></p>
+                  </div>
+                </div>
+
+                <div class="form__pair">
+                  <div class="field">
+                    <label class="field__label" for="fEmail" data-i18n="contact.email">البريد الإلكتروني</label>
+                    <input class="field__control" type="email" id="fEmail" name="email" autocomplete="email"
+                           aria-describedby="eEmail" placeholder="name@company.com" dir="ltr"
+                           data-i18n-attr="placeholder:contact.emailPh">
+                    <p class="field__error" id="eEmail" aria-live="polite"></p>
+                  </div>
+
+                  <div class="field">
+                    <label class="field__label" for="fService" data-i18n="contact.service">نوع الخدمة</label>
+                    <select class="field__control" id="fService" name="service" aria-describedby="eService">
+                      <option value="" data-i18n="contact.servicePick">اختر الخدمة</option>
+                      <option value="automation" data-i18n="services.a1">الأتمتة وربط الأنظمة</option>
+                      <option value="web" data-i18n="services.b1">تطبيقات ويب مخصصة</option>
+                      <option value="ai" data-i18n="services.c1">وكلاء ذكاء اصطناعي وروبوتات محادثة</option>
+                      <option value="mobile" data-i18n="services.d1">تطبيقات الهواتف</option>
+                      <option value="ecommerce" data-i18n="services.e1">المتاجر الإلكترونية</option>
+                      <option value="support" data-i18n="services.f1">الصيانة والتطوير المستمر</option>
+                    </select>
+                    <p class="field__error" id="eService" aria-live="polite"></p>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="fDetails">
+                    <span data-i18n="contact.details">موجز مختصر</span>
+                    <span class="field__opt">(<span data-i18n="contact.detailsOpt">اختياري</span>)</span>
+                  </label>
+                  <textarea class="field__control" id="fDetails" name="details" rows="4"
+                            placeholder="ما المشكلة التي تريد حلها؟"
+                            data-i18n-attr="placeholder:contact.detailsPh"></textarea>
+                </div>
+
+                <p class="field__error" id="formError" role="alert" aria-live="polite"></p>
+
+                <div class="form__actions">
+                  <button class="btn btn--primary btn--lg" type="submit" id="formSubmit" data-i18n="contact.submit">أرسل الطلب</button>
+                  <span class="form__or" data-i18n="contact.or">أو</span>
+                  <!-- PLACEHOLDER: replace with the real WhatsApp number. -->
+                  <a class="form__link" href="https://wa.me/000000000000" target="_blank" rel="noopener" data-i18n="contact.whatsapp">راسلنا على واتساب</a>
+                </div>
+              </div>
+
+              <div class="form__done" role="status">
+                <h3 class="form__done-title" data-i18n="contact.okTitle">وصلنا طلبك</h3>
+                <p class="form__done-body" data-i18n="contact.okBody">سنعود إليك في يوم العمل نفسه. وإذا كان الأمر عاجلا، راسلنا على واتساب الآن.</p>
+                <div class="form__actions">
+                  <!-- PLACEHOLDER: replace with the real WhatsApp number. -->
+                  <a class="btn btn--primary" href="https://wa.me/000000000000" target="_blank" rel="noopener" data-i18n="contact.whatsapp">راسلنا على واتساب</a>
+                  <button class="btn btn--quiet" type="button" id="formReset" data-i18n="contact.okAgain">أرسل طلبا آخر</button>
+                </div>
+              </div>
+            </form>
+
+            <aside class="contact__aside">
+              <ul class="contact__points">
+                <li class="contact__point">
+                  <span class="contact__point-title" data-i18n="process.s1">نفهم</span>
+                  <span class="contact__point-body" data-i18n="process.s1d">جلسة مدتها 20 دقيقة تنتهي بنطاق واضح ومكتوب.</span>
+                </li>
+                <li class="contact__point">
+                  <span class="contact__point-title" data-i18n="why.w2">مدد حقيقية</span>
+                  <span class="contact__point-body" data-i18n="why.w2d">نقول ستة أسابيع حين تكون ستة أسابيع.</span>
+                </li>
+                <li class="contact__point">
+                  <span class="contact__point-title" data-i18n="why.w1">كود تملكه</span>
+                  <span class="contact__point-body" data-i18n="why.w1d">التسليم بالمستودع والتوثيق كاملا. لا احتكار ولا ارتباط بنا.</span>
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- PHASE 2: footer -->
+  <!-- ======================================================================
+       FOOTER
+       PLACEHOLDER: every contact link below needs the real address before launch.
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid" data-reveal data-reveal-group>
+        <div class="footer__brand">
+          <img class="footer__logo" src="assets/logo-lockup.webp?v=1" width="180" height="64" alt="بوابتك" loading="lazy" decoding="async" data-i18n-attr="alt:brand.name">
+          <p class="footer__about" data-i18n="footer.aboutText">شركة برمجيات تبني الأنظمة والتطبيقات وعمليات الأتمتة التي ترفع العمل اليدوي عن الفرق.</p>
+        </div>
+
+        <div>
+          <h2 class="footer__title" data-i18n="footer.services">الخدمات</h2>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#services" data-i18n="services.a1">الأتمتة وربط الأنظمة</a></li>
+            <li><a class="footer__link" href="#services" data-i18n="services.b1">تطبيقات ويب مخصصة</a></li>
+            <li><a class="footer__link" href="#services" data-i18n="services.c1">وكلاء ذكاء اصطناعي وروبوتات محادثة</a></li>
+            <li><a class="footer__link" href="#services" data-i18n="services.d1">تطبيقات الهواتف</a></li>
+            <li><a class="footer__link" href="#services" data-i18n="services.e1">المتاجر الإلكترونية</a></li>
+            <li><a class="footer__link" href="#services" data-i18n="services.f1">الصيانة والتطوير المستمر</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="footer__title" data-i18n="footer.links">روابط</h2>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#process" data-i18n="nav.process">كيف نعمل</a></li>
+            <li><a class="footer__link" href="#work" data-i18n="nav.work">أعمالنا</a></li>
+            <li><a class="footer__link" href="#pricing" data-i18n="nav.pricing">الأسعار</a></li>
+            <li><a class="footer__link" href="#faq" data-i18n="nav.faq">الأسئلة</a></li>
+            <li><a class="footer__link" href="#contact" data-i18n="nav.cta">احجز استشارة</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="footer__title" data-i18n="footer.contact">تواصل</h2>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="https://wa.me/000000000000" target="_blank" rel="noopener" data-i18n="footer.whatsapp">واتساب</a></li>
+            <li><a class="footer__link" href="mailto:hello@example.com" data-i18n="footer.email">البريد الإلكتروني</a></li>
+            <li><a class="footer__link" href="https://www.linkedin.com/" target="_blank" rel="noopener" data-i18n="footer.linkedin">لينكدإن</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bar">
+        <p>
+          <span>© 2026 </span><span data-i18n="brand.name">بوابتك</span><span> </span><span data-i18n="footer.rights">جميع الحقوق محفوظة</span>
+        </p>
+        <!-- PLACEHOLDER: the privacy policy page does not exist yet. -->
+        <a class="footer__link" href="#top" data-i18n="footer.privacy">سياسة الخصوصية</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

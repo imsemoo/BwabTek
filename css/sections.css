@@ -63,7 +63,7 @@
   .hero__title {
     max-inline-size: 20ch;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.8;
   }
 
   /* Inter sets a shorter em than Alexandria, so the same ch count would break
@@ -261,6 +261,779 @@
       column-gap: var(--sp-32);
     }
   }
+
+  /* ==========================================================================
+     RESULTS
+     Three figures on one line, straight under the hero. No cards.
+     ========================================================================== */
+  .results {
+    padding-block: var(--sp-48);
+  }
+
+  .results__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-32);
+    padding-block-start: var(--sp-8);
+  }
+
+  .results .figure__num {
+    color: var(--brand-hi);
+  }
+
+  @media (max-width: 719px) {
+    .results__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-24);
+    }
+  }
+
+  /* ==========================================================================
+     SERVICES
+     Automation is the competitive difference, so it takes a tile twice as wide
+     and twice as tall and comes first. Cell count matches item count exactly at
+     every breakpoint, so no blank tiles are ever left over.
+     ========================================================================== */
+  .services__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-16);
+    padding-block-start: var(--sp-48);
+  }
+
+  .services__item--lead .card__body {
+    font-size: var(--step-0);
+    max-inline-size: 40ch;
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .services__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* 2 + 4 + 2 = 8 cells over four rows */
+    .services__item--lead,
+    .services__item--last {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    /* 4 + 5 = 9 cells over three rows */
+    .services__item--lead {
+      grid-column: span 2;
+      grid-row: span 2;
+      padding: var(--sp-32);
+    }
+
+    .services__item--lead .card__title {
+      font-size: var(--step-2);
+    }
+  }
+
+  /* ==========================================================================
+     AUTOMATION
+     The star section. An order enters one gate and leaves the last one as an
+     invoice; a single light runs the rail and lights each gate as it passes.
+     ========================================================================== */
+  /* The spark wrapper is as wide as the rail and travels its own width, so it
+     has to be clipped or it drags the page wider than the viewport. */
+  .automation__flow {
+    position: relative;
+    overflow: clip;
+    padding-block-start: var(--sp-64);
+  }
+
+  .flow__rail {
+    position: relative;
+    border-block-start: 1px solid var(--line);
+  }
+
+  /* Full-width wrapper: translating it by its own width carries the dash from
+     the first gate to the last, in whichever direction the page reads. */
+  .flow__spark {
+    position: absolute;
+    inset-block-start: -2px;
+    inset-inline: 0;
+    block-size: 3px;
+    pointer-events: none;
+    animation: flow-run 4s linear infinite;
+  }
+
+  .flow__spark::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    inline-size: var(--sp-12);
+    background: var(--accent);
+  }
+
+  @keyframes flow-run {
+    to {
+      transform: translateX(calc(var(--dir) * 100%));
+    }
+  }
+
+  .flow__steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--sp-16);
+  }
+
+  .flow__step {
+    display: grid;
+    justify-items: center;
+    gap: var(--sp-8);
+    padding-block-start: var(--sp-24);
+    text-align: center;
+  }
+
+  /* The same notch as the datum signature: every stage is a gate */
+  .flow__gate {
+    position: relative;
+    inline-size: var(--sp-24);
+    block-size: var(--sp-12);
+    margin-block-start: calc(var(--sp-12) * -1 - var(--sp-24));
+    border: 1px solid var(--line-strong);
+    border-block-end: 0;
+    border-start-start-radius: var(--r-pill);
+    border-start-end-radius: var(--r-pill);
+    background: var(--bg);
+  }
+
+  .flow__gate::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 1px solid var(--accent);
+    border-block-end: 0;
+    border-start-start-radius: var(--r-pill);
+    border-start-end-radius: var(--r-pill);
+    opacity: 0;
+    animation: gate-lit 4s linear infinite;
+    animation-delay: calc(var(--i, 0) * 1s);
+  }
+
+  @keyframes gate-lit {
+    0%, 8% { opacity: 0; }
+    12% { opacity: 1; }
+    24%, 100% { opacity: 0; }
+  }
+
+  .flow__title {
+    font-size: var(--step-0);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .flow__desc {
+    max-inline-size: 22ch;
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  .automation__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-32);
+    max-inline-size: 640px;
+    padding-block-start: var(--sp-64);
+  }
+
+  .automation__cta {
+    padding-block-start: var(--sp-48);
+  }
+
+  /* Below 720px the rail turns and runs down the start edge */
+  @media (max-width: 719px) {
+    .automation__flow {
+      padding-block-start: var(--sp-48);
+    }
+
+    .flow__rail {
+      border-block-start: 0;
+      border-inline-start: 1px solid var(--line);
+      padding-inline-start: var(--sp-24);
+    }
+
+    .flow__spark {
+      inset-block: 0;
+      inset-inline-start: -2px;
+      inset-inline-end: auto;
+      inline-size: 3px;
+      block-size: auto;
+      animation-name: flow-run-down;
+    }
+
+    .flow__spark::before {
+      inset-inline: 0;
+      inset-block-start: 0;
+      inset-block-end: auto;
+      block-size: var(--sp-12);
+      inline-size: auto;
+    }
+
+    @keyframes flow-run-down {
+      to {
+        transform: translateY(100%);
+      }
+    }
+
+    .flow__steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-32);
+    }
+
+    .flow__step {
+      position: relative;
+      justify-items: start;
+      padding-block-start: 0;
+      text-align: start;
+    }
+
+    /* 24x12 turned a quarter turn about its own centre, so the centre lands on
+       the rail: start offset = rail gap + half the turned width. */
+    .flow__gate {
+      position: absolute;
+      inset-block-start: var(--sp-4);
+      inset-inline-start: calc((var(--sp-24) + var(--sp-12)) * -1);
+      margin: 0;
+      transform: rotate(calc(var(--dir) * 90deg));
+      transform-origin: 50% 50%;
+    }
+
+    .flow__desc {
+      max-inline-size: 34ch;
+    }
+
+    .automation__metrics {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-24);
+      padding-block-start: var(--sp-48);
+    }
+  }
+
+  /* ==========================================================================
+     PROCESS
+     Four steps hung off one datum, numbered in mono.
+     ========================================================================== */
+  .process__steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--sp-32);
+    padding-block-start: var(--sp-48);
+  }
+
+  .process__step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: var(--sp-8);
+    padding-block-start: var(--sp-24);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .process__step::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: 1px;
+    block-size: var(--sp-12);
+    background: var(--line-strong);
+  }
+
+  .process__num {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .process__title {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .process__desc {
+    max-inline-size: 30ch;
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 899px) {
+    .process__steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 559px) {
+    .process__steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-24);
+    }
+
+    .process__desc {
+      max-inline-size: 44ch;
+    }
+  }
+
+  /* ==========================================================================
+     WORK
+     Wide rows rather than a third card grid: metric on the start side, the
+     story beside it, one rule between.
+     ========================================================================== */
+  .work__list {
+    display: grid;
+    padding-block-start: var(--sp-48);
+  }
+
+  .work__row {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--sp-32);
+    padding-block: var(--sp-32);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .work__row:last-child {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .work__metric {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-8);
+  }
+
+  .work__num {
+    font-family: var(--font-mono);
+    font-size: var(--step-3);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .work__unit {
+    max-inline-size: 20ch;
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .work__body {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-8);
+  }
+
+  .work__title {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .work__problem {
+    max-inline-size: 56ch;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+  }
+
+  @media (max-width: 719px) {
+    .work__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-16);
+      padding-block: var(--sp-24);
+    }
+  }
+
+  /* ==========================================================================
+     STACK
+     The single marquee on the page.
+     ========================================================================== */
+  .stack__title {
+    max-inline-size: 30ch;
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .stack__marquee {
+    padding-block-start: var(--sp-32);
+  }
+
+  /* ==========================================================================
+     WHY
+     Four points on hairlines. No cards: the rules do the grouping.
+     ========================================================================== */
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-48);
+    padding-block-start: var(--sp-48);
+  }
+
+  .why__item {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-12);
+    padding-block-start: var(--sp-24);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .why__title {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .why__body {
+    max-inline-size: 44ch;
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 719px) {
+    .why__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-32);
+    }
+  }
+
+  /* ==========================================================================
+     PRICING
+     Three tiers, the middle one raised by a brand border rather than by a glow.
+     ========================================================================== */
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-16);
+    align-items: start;
+    padding-block-start: var(--sp-48);
+  }
+
+  .plan {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-16);
+    padding: var(--sp-32) var(--sp-24);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+  }
+
+  .plan--lead {
+    border-color: var(--brand);
+    background: var(--surface-2);
+  }
+
+  .plan__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-8);
+  }
+
+  .plan__name {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .plan__who {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .plan__price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--sp-8);
+    padding-block-start: var(--sp-8);
+  }
+
+  .plan__from {
+    color: var(--text-faint);
+    font-size: var(--step--1);
+  }
+
+  .plan__amount {
+    font-family: var(--font-mono);
+    font-size: var(--step-2);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .plan__currency {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+  }
+
+  .plan__features {
+    display: grid;
+    gap: var(--sp-12);
+    padding-block-start: var(--sp-8);
+  }
+
+  /* A dimension tick, not a check icon: the same line language as everything else */
+  .plan__feature {
+    position: relative;
+    padding-inline-start: var(--sp-24);
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  .plan__feature::before {
+    content: "";
+    position: absolute;
+    inset-block-start: .72em;
+    inset-inline-start: 0;
+    inline-size: var(--sp-12);
+    block-size: 1px;
+    background: var(--line-strong);
+  }
+
+  .plan .btn {
+    margin-block-start: var(--sp-8);
+  }
+
+  .pricing__note {
+    max-inline-size: 60ch;
+    padding-block-start: var(--sp-24);
+    color: var(--text-faint);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 899px) {
+    .pricing__grid {
+      grid-template-columns: minmax(0, 1fr);
+      max-inline-size: 560px;
+    }
+  }
+
+  /* ==========================================================================
+     QUOTES
+     ========================================================================== */
+  .quotes__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-32);
+    padding-block-start: var(--sp-48);
+  }
+
+  .quote {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-16);
+    padding-block-start: var(--sp-24);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .quote__body {
+    font-size: var(--step-1);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .quote__who {
+    display: grid;
+    gap: var(--sp-4);
+  }
+
+  .quote__name {
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .quote__role {
+    color: var(--text-faint);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 899px) {
+    .quotes__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-24);
+    }
+  }
+
+  /* ==========================================================================
+     FAQ
+     ========================================================================== */
+  .faq__list {
+    max-inline-size: 860px;
+    padding-block-start: var(--sp-48);
+    border-block-start: 1px solid var(--border);
+  }
+
+  /* ==========================================================================
+     CONTACT
+     The closing gate: the form on the start side, the reason to send it on the
+     other, and the lit notch on the datum above.
+     ========================================================================== */
+  .contact__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--sp-64);
+    padding-block-start: var(--sp-48);
+  }
+
+  .form__fields {
+    display: grid;
+    gap: var(--sp-24);
+  }
+
+  .form__pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-24);
+  }
+
+  .contact__aside {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-24);
+  }
+
+  .contact__points {
+    display: grid;
+    gap: var(--sp-16);
+  }
+
+  .contact__point {
+    display: grid;
+    gap: var(--sp-4);
+    padding-block-start: var(--sp-16);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .contact__point-title {
+    font-size: var(--step-0);
+    font-weight: 600;
+  }
+
+  .contact__point-body {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 899px) {
+    .contact__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-48);
+    }
+  }
+
+  @media (max-width: 559px) {
+    .form__pair {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ==========================================================================
+     FOOTER
+     ========================================================================== */
+  .footer {
+    padding-block: var(--sp-64) var(--sp-32);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 3fr));
+    gap: var(--sp-32);
+  }
+
+  .footer__brand {
+    display: grid;
+    align-content: start;
+    gap: var(--sp-16);
+  }
+
+  .footer__logo {
+    inline-size: 180px;
+    block-size: 64px;
+    object-fit: contain;
+    object-position: right center;
+  }
+
+  [dir="ltr"] .footer__logo {
+    object-position: left center;
+  }
+
+  .footer__about {
+    max-inline-size: 40ch;
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  .footer__title {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .footer__list {
+    display: grid;
+    gap: var(--sp-8);
+    padding-block-start: var(--sp-16);
+  }
+
+  .footer__link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch);
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    transition: color var(--dur-ui) var(--ease);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer__link:hover {
+      color: var(--text);
+    }
+  }
+
+  .footer__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-16);
+    margin-block-start: var(--sp-48);
+    padding-block-start: var(--sp-24);
+    border-block-start: 1px solid var(--border);
+    color: var(--text-faint);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 899px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--sp-32);
+    }
+
+    .footer__brand {
+      grid-column: span 2;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -284,6 +1057,22 @@
 
   .hero__canvas {
     display: none;
+  }
+
+  .flow__spark {
+    display: none;
+  }
+
+  .flow__gate::after,
+  .marquee__track {
+    animation: none;
+  }
+
+  /* Belt and braces: main.js does not arm the reveal under reduced motion, but
+     if the preference changes after load nothing may stay hidden. */
+  html.can-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 
   .btn:active,
