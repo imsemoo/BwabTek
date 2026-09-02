@@ -74,6 +74,8 @@ Read `css/tokens.css` first; it holds the whole system and the reasoning.
   `translate` so it never fights a hover lift on `transform`; a component with
   its own `transition` list that becomes a reveal child must merge `opacity` and
   `translate` into it (see `.card`), or it loses the fade and the stagger.
-- The gate streams are decorative and gated: off below 900px in the hero, paused
-  off screen, frozen under reduced motion. The headline never waits on motion.
+- The readout inside the hero gate is decorative and gated: off below 900px,
+  asleep off screen or in a hidden tab, static under reduced motion. Its rows
+  are the automation stages' own dictionary keys, so it never needs its own
+  copy. The headline never waits on motion.
 - Arabic copy is Modern Standard, with no diacritics.

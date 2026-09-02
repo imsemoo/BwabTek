@@ -180,80 +180,94 @@
   }
 
   /* ---------- The gate is running ----------
-     Fragments of code descend inside the opening and dissolve at the threshold,
-     so the opening reads as something work passes through rather than as a shape
-     drawn on the page. Neutral, slow, and few: this is output leaving a machine,
-     not rain in a film.
-
-     The stream is as tall as the opening, so a token translating by 100% of its
-     own height travels exactly from the crown to the ground. */
-  .gateway__stream {
+     A readout inside the opening: one order id, the four automation stages
+     executed in sequence with a status mark, then the next order. It is the
+     star section's diagram happening live at the door, in the page's own
+     language, on a column, at reading contrast. js/main.js steps data-step
+     from 0 (blank) to 5 (all done); everything visual is a transition. */
+  .gateway__log {
     position: absolute;
-    inset-block: 14% 0;
-    inset-inline: 16%;
-    overflow: hidden;
+    inset-block-start: 36%;
+    inset-inline: 20%;
+    display: grid;
+    gap: var(--sp-12);
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 66%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 66%, transparent);
+    opacity: 0;
+    translate: 0 var(--sp-8);
+    transition:
+      opacity 600ms var(--ease),
+      translate 600ms var(--ease);
   }
 
-  .gateway__token {
-    position: absolute;
-    inset-block: 0;
-    inset-inline-start: var(--l, 50%);
+  .gateway__log[data-step]:not([data-step="0"]) {
+    opacity: 1;
+    translate: none;
+  }
+
+  .gateway__log-id {
     font-family: var(--font-mono);
-    font-size: var(--step--2);
+    font-size: var(--step--1);
     line-height: 1;
     color: var(--text-faint);
+    letter-spacing: .04em;
+    direction: ltr;
+    unicode-bidi: isolate;
+    justify-self: start;
+    padding-block-end: var(--sp-12);
+    border-block-end: 1px solid var(--line);
+    inline-size: 100%;
+  }
+
+  .gateway__log-rows {
+    display: grid;
+    gap: var(--sp-8);
+  }
+
+  .gateway__log-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-12);
+    font-size: var(--step--1);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-faint);
     white-space: nowrap;
-    opacity: 0;
-    will-change: transform, opacity;
-    animation: token-out var(--dur, 13s) linear infinite;
-    animation-delay: calc(var(--i, 0) * -1.6s);
+    translate: 0 var(--sp-4);
+    transition:
+      color var(--dur-in) var(--ease),
+      translate var(--dur-in) var(--ease);
   }
 
-  @keyframes token-out {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 0, 0);
-    }
-    14% {
-      opacity: .5;
-    }
-    76% {
-      opacity: .3;
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(calc(var(--dir) * var(--x, 0px)), 100%, 0);
-    }
+  /* the status mark: hollow while waiting, lit while running, filled when done */
+  .gateway__log-mark {
+    flex: none;
+    inline-size: var(--sp-8);
+    block-size: var(--sp-8);
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    transition:
+      background-color var(--dur-ui) var(--ease),
+      border-color var(--dur-ui) var(--ease);
   }
 
-  /* The closing gate takes work in rather than putting it out */
-  .gateway--receive .gateway__token {
-    animation-name: token-in;
+  .gateway__log-row.is-active {
+    color: var(--text);
+    translate: none;
   }
 
-  @keyframes token-in {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-    }
-    18% {
-      opacity: .42;
-    }
-    78% {
-      opacity: .26;
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(calc(var(--dir) * var(--x, 0px)), 0, 0);
-    }
+  .gateway__log-row.is-active .gateway__log-mark {
+    border-color: var(--accent);
+    background: var(--accent);
   }
 
-  /* Nothing runs while the gate is off screen */
-  .is-idle .gateway__token {
-    animation-play-state: paused;
+  .gateway__log-row.is-done {
+    color: var(--text-muted);
+    translate: none;
+  }
+
+  .gateway__log-row.is-done .gateway__log-mark {
+    border-color: var(--text-faint);
+    background: var(--text-faint);
   }
 
   /* 1px ring, lit at the crown, fading to nothing at the ground */

@@ -129,10 +129,8 @@
     transform: none;
   }
 
-  /* the stream only starts once the opening it lives in has been drawn */
-  html.can-reveal .hero:not(.is-drawn) .gateway__token {
-    animation-play-state: paused;
-  }
+  /* the readout only starts once the opening it lives in has been drawn;
+     main.js waits for .is-drawn before stepping it */
 
   /* Roughly 1:1.7, a door proportion. Taller than this and the opening reads as
      an empty tube rather than something you could walk through. */
@@ -265,7 +263,7 @@
     }
 
     /* The opening sits behind the copy here, so nothing moves behind the words */
-    .hero__arch .gateway__stream {
+    .hero__arch .gateway__log {
       display: none;
     }
 
@@ -1219,13 +1217,25 @@
   }
 
   .flow__gate::after,
-  .marquee__track,
-  .gateway__token {
+  .marquee__track {
     animation: none;
   }
 
-  .gateway__token {
-    opacity: .3;
+  /* the readout does not step; it shows the finished state, so the gate still
+     reads as a system without anything moving */
+  .gateway__log {
+    opacity: 1;
+    translate: none;
+  }
+
+  .gateway__log-row {
+    color: var(--text-muted);
+    translate: none;
+  }
+
+  .gateway__log-row .gateway__log-mark {
+    border-color: var(--text-faint);
+    background: var(--text-faint);
   }
 
   html.can-reveal .hero .gateway__order {

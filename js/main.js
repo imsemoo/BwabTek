@@ -6,7 +6,7 @@
 
    The accordion, the marquee and the automation flow are CSS only.
    ========================================================================== */
-import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=23';
+import { init as i18nInit, toggle as toggleLang, t } from './i18n.js?v=25';
 
 i18nInit();
 
@@ -381,10 +381,73 @@ function armReveal() {
 armReveal();
 
 /* ==========================================================================
-   IDLE GATES
-   A gate that is not on screen has no reason to run. Both openings pause
-   their streams while out of view; the WebGL floor already does the same.
+   THE GATE RUNS
+   A small state machine steps the readout inside the hero opening:
+     0 blank  ->  1..4 that stage running, earlier ones done  ->  5 all done
+   then blanks, takes the next order number and goes again. It waits for the
+   opening to be drawn, sleeps while the hero is off screen or the tab is
+   hidden, and never runs under reduced motion (CSS shows the finished state).
    ========================================================================== */
+const gateLog = document.querySelector('.hero .gateway__log');
+
+if (gateLog && !reducedMotion.matches) {
+  const rows = Array.from(gateLog.querySelectorAll('.gateway__log-row'));
+  const idEl = gateLog.querySelector('[data-log-id]');
+  const hero = gateLog.closest('.hero');
+  let order = Number(idEl ? idEl.textContent : 4021) || 4021;
+  let step = 0;
+  let timer = 0;
+
+  const STEP_MS = 950;      /* one stage */
+  const HOLD_MS = 1500;     /* all done, before the next order */
+  const BLANK_MS = 700;     /* fade out, then a fresh id */
+
+  function paint() {
+    gateLog.dataset.step = String(step);
+    rows.forEach((row, index) => {
+      const stage = index + 1;
+      row.classList.toggle('is-done', step > stage);
+      row.classList.toggle('is-active', step === stage);
+    });
+  }
+
+  function asleep() {
+    return document.visibilityState !== 'visible' || hero.classList.contains('is-idle') || !hero.classList.contains('is-drawn');
+  }
+
+  function tick() {
+    timer = 0;
+    if (asleep()) {
+      timer = window.setTimeout(tick, 500);
+      return;
+    }
+    let wait = STEP_MS;
+    if (step === 0) {
+      order += 1;
+      if (idEl) idEl.textContent = String(order);
+      step = 1;
+    } else if (step < 4) {
+      step += 1;
+    } else if (step === 4) {
+      step = 5;
+      wait = HOLD_MS;
+    } else {
+      step = 0;
+      wait = BLANK_MS;
+    }
+    paint();
+    timer = window.setTimeout(tick, wait);
+  }
+
+  paint();
+  timer = window.setTimeout(tick, 900);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && !timer) timer = window.setTimeout(tick, 300);
+  });
+}
+
+/* Gates that are off screen have no reason to run */
 if ('IntersectionObserver' in window) {
   const gates = document.querySelectorAll('.hero, #contact');
   if (gates.length) {
@@ -422,7 +485,7 @@ function startHeroBackground() {
   const observer = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
-    import('./hero-grid.js?v=23')
+    import('./hero-grid.js?v=25')
       .then((module) => {
         heroGrid = module.initHeroGrid(host, {
           horizon: document.getElementById('heroBase'),
